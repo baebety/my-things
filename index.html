@@ -7,317 +7,2179 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f7f3ed">
 <title>my things.</title>
+
 <style>
-:root{--bg:#f7f3ed;--card:#fffdfa;--ink:#24221f;--muted:#8a8278;--line:#e5ddd2;--accent:#b66b52;--soft:#f1e6dc;--shadow:0 12px 34px rgba(45,36,28,.08)}
+:root{
+  --bg:#f7f3ed;
+  --card:#fffdfa;
+  --ink:#24221f;
+  --muted:#8a8278;
+  --line:#e5ddd2;
+  --accent:#b66b52;
+  --soft:#f1e6dc;
+  --shadow:0 12px 34px rgba(45,36,28,.08)
+}
+
 *{box-sizing:border-box}
-html{background:var(--bg)}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif}
-.app{max-width:560px;margin:auto;min-height:100vh;padding-bottom:96px}
-header{padding:24px 20px 8px;display:flex;align-items:center;justify-content:space-between}
-.brand{font-size:25px;font-weight:850;letter-spacing:-1.4px}
-.sub{font-size:12px;color:var(--muted);margin-top:2px}
-.iconbtn{border:0;background:var(--card);width:48px;height:48px;border-radius:17px;font-size:28px;color:#3775df;box-shadow:var(--shadow)}
-.hero{padding:16px 20px}
-.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1.6px;color:var(--muted);font-weight:700}
-.hero h1{font-size:39px;line-height:.99;letter-spacing:-2.2px;margin:10px 0 12px}
-.hero p{color:var(--muted);margin:0;font-size:15px;line-height:1.45}
-.search{display:flex;gap:9px;margin-top:22px}
-.search input{flex:1;border:1px solid var(--line);background:var(--card);border-radius:18px;padding:15px 16px;font-size:16px;outline:none}
-.search button{width:52px;border:0;border-radius:18px;background:var(--ink);color:white;font-size:23px}
-.toolbar{display:flex;gap:8px;overflow:auto;padding:4px 20px 18px;scrollbar-width:none}
+
+html,body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif
+}
+
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+
+.app{
+  max-width:620px;
+  margin:auto;
+  min-height:100vh;
+  padding-bottom:100px
+}
+
+header{
+  padding:22px 20px 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between
+}
+
+.brand{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:-1.5px
+}
+
+.sub{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:2px
+}
+
+.iconbtn{
+  border:0;
+  background:var(--card);
+  width:48px;
+  height:48px;
+  border-radius:17px;
+  font-size:27px;
+  color:#3775df;
+  box-shadow:var(--shadow)
+}
+
+.hero{padding:14px 20px 12px}
+
+.eyebrow{
+  text-transform:uppercase;
+  letter-spacing:1.6px;
+  font-size:10px;
+  color:var(--muted);
+  font-weight:800
+}
+
+.hero h1{
+  font-size:41px;
+  line-height:.98;
+  letter-spacing:-2.4px;
+  margin:9px 0 11px
+}
+
+.hero p{
+  color:var(--muted);
+  margin:0;
+  font-size:15px;
+  line-height:1.45
+}
+
+.search{
+  display:flex;
+  gap:9px;
+  margin-top:20px
+}
+
+.search input{
+  flex:1;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:18px;
+  padding:15px 16px;
+  font-size:16px;
+  outline:none
+}
+
+.search button{
+  width:52px;
+  border:0;
+  border-radius:18px;
+  background:var(--ink);
+  color:#fff;
+  font-size:23px
+}
+
+.toolbar{
+  display:flex;
+  gap:8px;
+  overflow:auto;
+  padding:6px 20px 17px;
+  scrollbar-width:none
+}
+
 .toolbar::-webkit-scrollbar{display:none}
-.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:9px 14px;font-size:13px;color:var(--ink)}
-.chip.active{background:var(--ink);color:#fff}
+
+.chip{
+  white-space:nowrap;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:999px;
+  padding:9px 14px;
+  font-size:13px;
+  color:var(--ink)
+}
+
+.chip.active{
+  background:var(--ink);
+  color:#fff
+}
+
 section{padding:0 20px}
-.sectionhead{display:flex;align-items:end;justify-content:space-between;margin:2px 0 12px}
-.sectionhead h2{font-size:18px;margin:0}
-.count{font-size:12px;color:var(--muted)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.item{background:var(--card);border:1px solid var(--line);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+
+.sectionhead{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  margin:2px 0 12px
+}
+
+.sectionhead h2{
+  font-size:18px;
+  margin:0
+}
+
+.count{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px
+}
+
+.item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow)
+}
+
 .item.big{grid-column:span 2}
-.pic{position:relative;height:178px;background:linear-gradient(135deg,#e8ded3,#f8f1e8);display:flex;align-items:center;justify-content:center;overflow:hidden}
-.item.big .pic{height:280px}
-.pic img{width:100%;height:100%;object-fit:cover}
+
+.pic{
+  position:relative;
+  height:178px;
+  background:linear-gradient(135deg,#e8ded3,#f8f1e8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden
+}
+
+.item.big .pic{height:285px}
+
+.pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
 .pic .emoji{font-size:45px}
-.item.big .pic .emoji{font-size:58px}
-.scorepill{position:absolute;right:10px;top:10px;background:rgba(255,253,250,.94);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:800}
+.item.big .pic .emoji{font-size:60px}
+
+.scorepill{
+  position:absolute;
+  right:10px;
+  top:10px;
+  background:rgba(255,253,250,.94);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:12px;
+  font-weight:850
+}
+
 .body{padding:13px 14px 15px}
-.name{font-weight:800;font-size:17px;line-height:1.12}
+
+.name{
+  font-weight:850;
+  font-size:17px;
+  line-height:1.12
+}
+
 .item.big .name{font-size:21px}
-.meta{font-size:11px;color:var(--muted);margin-top:6px;text-transform:uppercase;letter-spacing:.7px;font-weight:700}
-.ratingrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
-.rating{font-size:17px;font-weight:850}
-.again{font-size:11px;background:var(--soft);padding:6px 9px;border-radius:999px;white-space:nowrap}
-.note{font-size:13px;line-height:1.4;color:#575149;margin-top:10px}
-.empty{padding:48px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:24px;grid-column:1/-1}
-.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);background:rgba(255,253,249,.93);backdrop-filter:blur(18px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);padding:8px 10px calc(8px + env(safe-area-inset-bottom));z-index:5}
-.nav{border:0;background:none;color:var(--muted);font-size:10px;padding:3px 0}
-.nav b{display:block;font-size:20px;margin-bottom:2px;color:var(--ink)}
+
+.meta{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:6px;
+  text-transform:uppercase;
+  letter-spacing:.8px;
+  font-weight:800
+}
+
+.ratingrow{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:12px
+}
+
+.rating{
+  font-size:17px;
+  font-weight:900
+}
+
+.again{
+  font-size:11px;
+  background:var(--soft);
+  padding:6px 9px;
+  border-radius:999px;
+  white-space:nowrap
+}
+
+.note{
+  font-size:13px;
+  line-height:1.4;
+  color:#575149;
+  margin-top:10px
+}
+
+.empty{
+  padding:45px 20px;
+  text-align:center;
+  color:var(--muted);
+  border:1px dashed var(--line);
+  border-radius:24px;
+  grid-column:1/-1
+}
+
+.bottom{
+  position:fixed;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(620px,100%);
+  background:rgba(255,253,249,.94);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  padding:8px 8px calc(8px + env(safe-area-inset-bottom));
+  z-index:5
+}
+
+.nav{
+  border:0;
+  background:none;
+  color:var(--muted);
+  font-size:10px;
+  padding:3px 0
+}
+
+.nav b{
+  display:block;
+  font-size:19px;
+  margin-bottom:2px;
+  color:var(--ink)
+}
+
 .nav.active{color:var(--ink)}
-.modal{position:fixed;inset:0;background:rgba(30,25,20,.44);display:none;align-items:flex-end;z-index:10}
-.sheet{width:min(560px,100%);margin:auto;background:var(--card);border-radius:30px 30px 0 0;padding:12px 20px 24px;max-height:92vh;overflow:auto}
-.grab{width:42px;height:4px;border-radius:99px;background:#d7cec4;margin:2px auto 16px}
-.sheet h2{margin:0 0 18px;font-size:25px}
+
+.view{display:none}
+.view.active{display:block}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px
+}
+
+.stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:14px
+}
+
+.stat strong{
+  display:block;
+  font-size:22px
+}
+
+.stat span{
+  font-size:10px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.5px
+}
+
+.list{
+  display:grid;
+  gap:10px
+}
+
+.listrow{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:13px 14px;
+  display:flex;
+  justify-content:space-between;
+  gap:12px
+}
+
+.listrow small{color:var(--muted)}
+
+.profilebox{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:20px
+}
+
+.profiletitle{
+  font-size:28px;
+  font-weight:900
+}
+
+.toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid var(--line)
+}
+
+.switch{
+  width:48px;
+  height:28px;
+  border-radius:99px;
+  background:#d8d0c6;
+  border:0;
+  padding:3px
+}
+
+.switch i{
+  display:block;
+  width:22px;
+  height:22px;
+  border-radius:50%;
+  background:#fff;
+  transition:.2s
+}
+
+.switch.on{background:var(--ink)}
+
+.switch.on i{transform:translateX(20px)}
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(30,25,20,.44);
+  display:none;
+  align-items:flex-end;
+  z-index:10
+}
+
+.sheet{
+  width:min(620px,100%);
+  margin:auto;
+  background:var(--card);
+  border-radius:30px 30px 0 0;
+  padding:12px 20px 25px;
+  max-height:93vh;
+  overflow:auto
+}
+
+.grab{
+  width:42px;
+  height:4px;
+  border-radius:99px;
+  background:#d7cec4;
+  margin:2px auto 16px
+}
+
+.sheet h2{
+  margin:0 0 18px;
+  font-size:25px
+}
+
 .row{margin:16px 0}
-.row label{font-size:12px;color:var(--muted);display:block;margin-bottom:8px;font-weight:700}
-.row input,.row textarea,.row select{width:100%;padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff;font:inherit;outline:none}
+
+.row label{
+  font-size:12px;
+  color:var(--muted);
+  display:block;
+  margin-bottom:8px;
+  font-weight:750
+}
+
+.row input,
+.row textarea,
+.row select{
+  width:100%;
+  padding:14px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:#fff;
+  font:inherit;
+  outline:none
+}
+
 .row textarea{min-height:88px}
-.score{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}
-.score button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 0}
-.score button.sel{background:var(--ink);color:#fff}
-.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.choices button{border:1px solid var(--line);background:#fff;border-radius:13px;padding:12px 4px;font-size:12px}
-.choices button.sel{border-color:var(--accent);background:#f4e6dc}
-.photo-preview{margin-top:9px;border-radius:16px;overflow:hidden;background:var(--soft);display:none}
-.photo-preview img{width:100%;height:170px;object-fit:cover}
-.notehint{font-size:11px;color:var(--muted);margin-top:6px}
-.actions{display:flex;gap:8px;margin-top:20px}
-.actions button{flex:1;border:0;border-radius:15px;padding:15px;font-weight:800}
+
+.score{
+  display:grid;
+  grid-template-columns:repeat(11,1fr);
+  gap:4px
+}
+
+.score button{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:9px;
+  padding:9px 0
+}
+
+.score button.sel{
+  background:var(--ink);
+  color:#fff
+}
+
+.choices{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px
+}
+
+.choices button{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:13px;
+  padding:12px 4px;
+  font-size:12px
+}
+
+.choices button.sel{
+  border-color:var(--accent);
+  background:#f4e6dc
+}
+
+.photo-preview{
+  margin-top:9px;
+  border-radius:16px;
+  overflow:hidden;
+  background:var(--soft);
+  display:none
+}
+
+.photo-preview img{
+  width:100%;
+  height:180px;
+  object-fit:cover
+}
+
+.notehint{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:6px
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  margin-top:20px
+}
+
+.actions button{
+  flex:1;
+  border:0;
+  border-radius:15px;
+  padding:15px;
+  font-weight:850
+}
+
 .cancel{background:var(--soft)}
-.save{background:var(--ink);color:#fff}
+
+.save{
+  background:var(--ink);
+  color:#fff
+}
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translate(-50%,15px);
+  background:var(--ink);
+  color:#fff;
+  border-radius:999px;
+  padding:10px 15px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:20
+}
+
+.toast.show{
+  opacity:1;
+  transform:translate(-50%,0)
+}
+
+.product-search{
+  background:#f5eee6;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:12px;
+  margin:-4px 0 18px
+}
+
+.product-search-top{
+  display:flex;
+  gap:8px
+}
+
+.product-search-top input{
+  flex:1;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:14px;
+  padding:13px;
+  outline:none
+}
+
+.product-search-top button{
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  border-radius:14px;
+  padding:0 15px;
+  font-weight:800
+}
+
+.sourcehint{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:7px;
+  line-height:1.35
+}
+
+.results{
+  display:grid;
+  gap:8px;
+  margin-top:10px
+}
+
+.result{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:9px;
+  text-align:left;
+  width:100%
+}
+
+.result img,
+.result .rpic{
+  width:56px;
+  height:56px;
+  border-radius:12px;
+  object-fit:contain;
+  background:#f4eee7;
+  flex:none
+}
+
+.result .rinfo{
+  min-width:0;
+  flex:1
+}
+
+.result .rname{
+  font-size:13px;
+  font-weight:850;
+  line-height:1.2
+}
+
+.result .rbrand{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.result .arrow{
+  font-size:18px;
+  color:var(--muted)
+}
+
+.loading{
+  font-size:12px;
+  color:var(--muted);
+  padding:10px 2px
+}
+
+.selected-product{
+  display:none;
+  align-items:center;
+  gap:10px;
+  padding:9px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  margin-top:10px
+}
+
+.selected-product img{
+  width:62px;
+  height:62px;
+  object-fit:contain;
+  border-radius:12px;
+  background:#f4eee7
+}
+
+.selected-product strong{
+  display:block;
+  font-size:13px
+}
+
+.selected-product small{
+  display:block;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.clear-product{
+  margin-left:auto;
+  border:0;
+  background:var(--soft);
+  border-radius:10px;
+  padding:7px 9px;
+  font-size:11px
+}
+
+.manual-link{
+  border:0;
+  background:none;
+  color:var(--accent);
+  font-size:11px;
+  padding:8px 0 0;
+  font-weight:750
+}
+
+.api-note{
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.35;
+  margin-top:8px
+}
+
+@media(max-width:430px){
+  .hero h1{font-size:37px}
+  .grid{gap:10px}
+  .item{border-radius:20px}
+  .pic{height:155px}
+  .item.big .pic{height:245px}
+}
 </style>
 </head>
+
 <body>
 
 <div class="app">
+
 <header>
-<div><div class="brand">my things.</div><div class="sub">what I tried lately</div></div>
-<button class="iconbtn" onclick="openModal()">＋</button>
+  <div>
+    <div class="brand">my things.</div>
+    <div class="sub">your taste, your archive.</div>
+  </div>
+  <button class="iconbtn" onclick="openAdd()">＋</button>
 </header>
 
-<div class="hero">
-<div class="eyebrow">my personal archive</div>
-<h1>Your taste,<br>your archive.</h1>
-<p>Denediğin her şeyi kendi zevkine göre kaydet.</p>
-<div class="search">
-<input id="search" placeholder="Bir şey ara..." oninput="render()">
-<button onclick="openModal()">＋</button>
-</div>
+<div id="homeView" class="view active">
+
+  <div class="hero">
+    <div class="eyebrow">my personal archive</div>
+
+    <h1>Everything<br>I tried.</h1>
+
+    <p>
+      Denediğin şeyleri puanla, kaydet ve zamanla kendi zevk haritanı oluştur.
+    </p>
+
+    <div class="search">
+      <input
+        id="search"
+        placeholder="Bir şey ara..."
+        oninput="renderHome()"
+      >
+      <button onclick="openAdd()">＋</button>
+    </div>
+  </div>
+
+  <div class="toolbar" id="cats"></div>
+
+  <section>
+    <div class="sectionhead">
+      <h2>My things</h2>
+      <span id="count" class="count"></span>
+    </div>
+
+    <div id="grid" class="grid"></div>
+  </section>
+
 </div>
 
-<div class="toolbar">
-<button class="chip active" data-cat="all" onclick="setCat(this,'all')">Hepsi</button>
-<button class="chip" data-cat="Beauty" onclick="setCat(this,'Beauty')">Beauty</button>
-<button class="chip" data-cat="Food" onclick="setCat(this,'Food')">Food</button>
-<button class="chip" data-cat="Drinks" onclick="setCat(this,'Drinks')">Drinks</button>
-<button class="chip" data-cat="Places" onclick="setCat(this,'Places')">Places</button>
-<button class="chip" data-cat="Experiences" onclick="setCat(this,'Experiences')">Experiences</button>
+
+<div id="diaryView" class="view">
+
+  <div class="hero">
+    <div class="eyebrow">diary</div>
+
+    <h1>What I tried,<br>day by day.</h1>
+
+    <p>
+      Eklediğin her şey tarihine göre burada.
+    </p>
+  </div>
+
+  <section>
+    <div id="diaryList" class="list"></div>
+  </section>
+
 </div>
 
-<section>
-<div class="sectionhead">
-<h2>What I tried lately</h2>
-<span id="count" class="count"></span>
-</div>
-<div id="grid" class="grid"></div>
-</section>
+
+<div id="statsView" class="view">
+
+  <div class="hero">
+    <div class="eyebrow">your taste</div>
+
+    <h1>Your<br>stats.</h1>
+
+    <p>
+      Kendi zevk profilinin küçük özeti.
+    </p>
+  </div>
+
+  <section>
+
+    <div id="stats" class="stats"></div>
+
+    <div style="height:14px"></div>
+
+    <div id="catStats" class="list"></div>
+
+  </section>
+
 </div>
 
-<nav class="bottom">
-<button class="nav active" onclick="goHome()"><b>⌂</b>Home</button>
-<button class="nav" onclick="focusSearch()"><b>⌕</b>Search</button>
-<button class="nav" onclick="openModal()"><b>＋</b>Add</button>
-<button class="nav" onclick="alert('Diary ekranını bir sonraki sürümde ekleyeceğiz.')"><b>▦</b>Diary</button>
-</nav>
 
-<div class="modal" id="modal" onclick="if(event.target===this)closeModal()">
-<div class="sheet">
-<div class="grab"></div>
-<h2>Yeni değerlendirme</h2>
+<div id="profileView" class="view">
 
-<div class="row">
-<label>Ne değerlendirdin?</label>
-<input id="name" placeholder="Örn. CeraVe temizleyici">
+  <div class="hero">
+    <div class="eyebrow">profile</div>
+
+    <h1>Your<br>space.</h1>
+
+    <p>
+      Profilin ve kişisel ayarların.
+    </p>
+  </div>
+
+  <section>
+
+    <div class="profilebox">
+
+      <div class="profiletitle">
+        my things.
+      </div>
+
+      <div style="color:var(--muted);font-size:13px;margin-top:6px">
+        Personal archive
+      </div>
+
+      <div class="toggle">
+
+        <div>
+          <strong>Public profile</strong>
+
+          <div style="font-size:11px;color:var(--muted);margin-top:3px">
+            Profilini başkalarının görebilmesine izin ver.
+          </div>
+        </div>
+
+        <button
+          id="publicSwitch"
+          class="switch"
+          onclick="togglePublic()"
+        >
+          <i></i>
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
 </div>
 
-<div class="row">
-<label>Kategori</label>
-<select id="cat">
-<option>Beauty</option><option>Food</option><option>Drinks</option><option>Places</option><option>Experiences</option><option>Fashion</option><option>Home</option><option>Entertainment</option><option>Other</option>
-</select>
+
+<div class="bottom">
+
+  <button
+    class="nav active"
+    onclick="showView('homeView',this)"
+  >
+    <b>⌂</b>
+    Home
+  </button>
+
+  <button
+    class="nav"
+    onclick="showView('diaryView',this)"
+  >
+    <b>◷</b>
+    Diary
+  </button>
+
+  <button
+    class="nav"
+    onclick="openAdd()"
+  >
+    <b>＋</b>
+    Add
+  </button>
+
+  <button
+    class="nav"
+    onclick="showView('statsView',this)"
+  >
+    <b>◌</b>
+    Stats
+  </button>
+
+  <button
+    class="nav"
+    onclick="showView('profileView',this)"
+  >
+    <b>○</b>
+    Profile
+  </button>
+
 </div>
 
-<div class="row">
-<label>Puanın — <strong id="scoreLabel">8</strong>/10</label>
-<div class="score" id="scores"></div>
+
+<div id="modal" class="modal">
+
+  <div class="sheet">
+
+    <div class="grab"></div>
+
+    <h2>Add something</h2>
+
+
+    <div class="product-search">
+
+      <label
+        style="font-size:12px;color:var(--muted);display:block;margin-bottom:8px;font-weight:750"
+      >
+        Ürün ara
+      </label>
+
+      <div class="product-search-top">
+
+        <input
+          id="productSearch"
+          placeholder="Örn. Maybelline Sky High"
+        >
+
+        <button onclick="searchProducts()">
+          Ara
+        </button>
+
+      </div>
+
+      <div id="sourceHint" class="sourcehint"></div>
+
+      <div id="productResults" class="results"></div>
+
+      <div
+        id="selectedProduct"
+        class="selected-product"
+      ></div>
+
+      <button
+        class="manual-link"
+        onclick="useManualProduct()"
+      >
+        Ürünü bulamadın mı? Kendin ekle →
+      </button>
+
+      <div class="api-note">
+        Ürün kataloğundan bir sonuç seçersen isim, marka ve mevcut ürün görseli otomatik eklenir.
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <label>Ürün / deneyim adı</label>
+
+      <input
+        id="name"
+        placeholder="Örn. Sky High Mascara"
+      >
+
+    </div>
+
+
+    <div class="row">
+
+      <label>Kategori</label>
+
+      <select id="cat" onchange="updateSourceHint()"></select>
+
+    </div>
+
+
+    <div class="row">
+
+      <label>
+        Puanın:
+        <span id="scoreLabel">8</span>/10
+      </label>
+
+      <div id="scores" class="score"></div>
+
+    </div>
+
+
+    <div class="row">
+
+      <label>Tekrar?</label>
+
+      <div id="choices" class="choices">
+
+        <button
+          data-v="Tekrar alırım"
+          onclick="chooseAgain(this)"
+        >
+          Tekrar alırım
+        </button>
+
+        <button
+          data-v="Belki"
+          onclick="chooseAgain(this)"
+        >
+          Belki
+        </button>
+
+        <button
+          data-v="Almam"
+          onclick="chooseAgain(this)"
+        >
+          Almam
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="row">
+
+      <label>Kısa yorum</label>
+
+      <textarea
+        id="note"
+        placeholder="Neyi sevdin, neyi sevmedin?"
+      ></textarea>
+
+    </div>
+
+
+    <div class="row">
+
+      <label>Kendi fotoğrafın</label>
+
+      <input
+        id="photo"
+        type="file"
+        accept="image/*"
+        onchange="previewPhoto(event)"
+      >
+
+      <div id="photoPreview" class="photo-preview">
+        <img id="previewImg" alt="">
+      </div>
+
+      <div id="photoNote" class="notehint">
+        İstersen kendi fotoğrafını da ekleyebilirsin.
+      </div>
+
+      <div
+        id="catalogPhotoNote"
+        class="notehint"
+      >
+        Ürün kataloğundan seçtiğinde ürün görseli otomatik kaydedilecek.
+      </div>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="cancel"
+        onclick="closeModal()"
+      >
+        Vazgeç
+      </button>
+
+      <button
+        class="save"
+        onclick="saveItem()"
+      >
+        Kaydet
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
 
-<div class="row">
-<label>Tekrar?</label>
-<div class="choices" id="choices">
-<button data-v="Tekrar alırım" onclick="chooseAgain(this)">Tekrar alırım</button>
-<button data-v="Belki" onclick="chooseAgain(this)">Belki</button>
-<button data-v="Almam" onclick="chooseAgain(this)">Almam</button>
-</div>
-</div>
 
-<div class="row">
-<label>Kısa yorum</label>
-<textarea id="note" placeholder="Neyi sevdin, neyi sevmedin?"></textarea>
-</div>
+<div id="toast" class="toast"></div>
 
-<div class="row">
-<label>Fotoğraf</label>
-<input id="photo" type="file" accept="image/*" onchange="previewPhoto(event)">
-<div id="photoPreview" class="photo-preview">
-<img id="previewImg" alt="Fotoğraf önizleme">
-</div>
-<div id="photoNote" class="notehint">İstersen ürünün, yemeğin veya yerin fotoğrafını ekle.</div>
-</div>
-
-<div class="actions">
-<button class="cancel" onclick="closeModal()">Vazgeç</button>
-<button class="save" onclick="saveItem()">Kaydet</button>
-</div>
-</div>
-</div>
 
 <script>
-const seed=[
-{name:"Sky High Mascara",cat:"Beauty",score:8.5,again:"Tekrar alırım",note:"Günlük makyaj için çok iyi.",emoji:"💄"},
-{name:"Çilekli cheesecake",cat:"Food",score:9,again:"Tekrar alırım",note:"Tam sevdiğim gibi.",emoji:"🍰"},
-{name:"Iced latte",cat:"Drinks",score:7,again:"Belki",note:"Fena değil ama daha iyisini içtim.",emoji:"☕"},
-{name:"Sevdiğim kafe",cat:"Places",score:8.5,again:"Tekrar alırım",note:"Ortamı çok güzel.",emoji:"📍"}
+
+const categories=[
+  "Beauty",
+  "Food",
+  "Drinks",
+  "Places",
+  "Experiences",
+  "Fashion",
+  "Home",
+  "Entertainment",
+  "Other"
 ];
 
-let items=JSON.parse(localStorage.getItem("mythings")||"null")||seed;
-let currentCat="all",chosenScore=8,chosenAgain="Tekrar alırım",photoData="";
 
-function render(){
-const q=document.getElementById("search").value.toLowerCase();
-let arr=items.filter(x=>(currentCat==="all"||x.cat===currentCat)&&(!q||x.name.toLowerCase().includes(q)));
-document.getElementById("count").textContent=arr.length+(arr.length===1?" entry":" entries");
-const grid=document.getElementById("grid");
+const seed=[
+  {
+    name:"Sky High Mascara",
+    cat:"Beauty",
+    score:9,
+    again:"Tekrar alırım",
+    note:"Kirpikleri gerçekten uzatıyor.",
+    emoji:"💄",
+    date:"2026-09-27"
+  },
+  {
+    name:"Yabanmersinli cheesecake",
+    cat:"Food",
+    score:9,
+    again:"Tekrar alırım",
+    note:"Tam sevdiğim gibi.",
+    emoji:"🍰",
+    date:"2026-09-26"
+  },
+  {
+    name:"Iced latte",
+    cat:"Drinks",
+    score:7,
+    again:"Belki",
+    note:"Fena değil ama daha iyisini içtim.",
+    emoji:"☕",
+    date:"2026-09-25"
+  }
+];
 
-grid.innerHTML=arr.length?arr.map((x,i)=>`
-<article class="item ${i%3===0?'big':''}">
-<div class="pic">
-${x.photo?`<img src="${x.photo}" alt="">`:`<span class="emoji">${x.emoji||"✨"}</span>`}
-<span class="scorepill">${x.score}/10</span>
-</div>
-<div class="body">
-<div class="name">${esc(x.name)}</div>
-<div class="meta">${esc(x.cat)}</div>
-<div class="ratingrow">
-<div class="rating">${x.score}/10</div>
-<span class="again">${esc(x.again)}</span>
-</div>
-${x.note?`<div class="note">${esc(x.note)}</div>`:""}
-</div>
-</article>`).join(""):`<div class="empty">Henüz burada bir şey yok.<br><br><button class="chip" onclick="openModal()">＋ İlk değerlendirmeyi ekle</button></div>`;
+
+let items=
+  JSON.parse(
+    localStorage.getItem("mythings_v4") || "null"
+  ) || seed;
+
+
+let currentCat="all";
+let chosenScore=8;
+let chosenAgain="Tekrar alırım";
+let photoData="";
+let selectedProduct=null;
+let searchTimer=null;
+
+
+function save(){
+
+  localStorage.setItem(
+    "mythings_v4",
+    JSON.stringify(items)
+  );
+
 }
 
-function setCat(el,c){
-currentCat=c;
-document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));
-document.querySelector(`.chip[data-cat="${c}"]`)?.classList.add("active");
-render();
-}
-
-function goHome(){
-currentCat="all";
-document.getElementById("search").value="";
-document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));
-document.querySelector('.chip[data-cat="all"]').classList.add("active");
-render();
-window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function focusSearch(){
-document.getElementById("search").focus();
-window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function openModal(){
-document.getElementById("modal").style.display="flex";
-chosenScore=8;
-chosenAgain="Tekrar alırım";
-photoData="";
-document.getElementById("name").value="";
-document.getElementById("note").value="";
-document.getElementById("photo").value="";
-document.getElementById("cat").value="Beauty";
-document.getElementById("photoNote").textContent="İstersen ürünün, yemeğin veya yerin fotoğrafını ekle.";
-document.getElementById("photoPreview").style.display="none";
-drawScores();
-drawChoices();
-}
-
-function closeModal(){document.getElementById("modal").style.display="none"}
-
-function drawScores(){
-let s=document.getElementById("scores");
-s.innerHTML="";
-for(let i=0;i<=10;i++){
-let b=document.createElement("button");
-b.textContent=i;
-b.className=i===chosenScore?"sel":"";
-b.onclick=()=>{
-chosenScore=i;
-document.getElementById("scoreLabel").textContent=i;
-drawScores();
-};
-s.appendChild(b);
-}
-document.getElementById("scoreLabel").textContent=chosenScore;
-}
-
-function chooseAgain(b){
-chosenAgain=b.dataset.v;
-drawChoices();
-}
-
-function drawChoices(){
-document.querySelectorAll("#choices button").forEach(b=>b.classList.toggle("sel",b.dataset.v===chosenAgain));
-}
-
-function previewPhoto(e){
-let f=e.target.files[0];
-if(!f)return;
-let r=new FileReader();
-r.onload=()=>{
-photoData=r.result;
-document.getElementById("previewImg").src=photoData;
-document.getElementById("photoPreview").style.display="block";
-document.getElementById("photoNote").textContent="Fotoğraf hazır ✓";
-};
-r.readAsDataURL(f);
-}
-
-function saveItem(){
-let name=document.getElementById("name").value.trim();
-if(!name){
-alert("Önce neyi değerlendirdiğini yaz.");
-return;
-}
-
-let x={
-name,
-cat:document.getElementById("cat").value,
-score:chosenScore,
-again:chosenAgain,
-note:document.getElementById("note").value.trim(),
-photo:photoData,
-emoji:"✨"
-};
-
-items.unshift(x);
-localStorage.setItem("mythings",JSON.stringify(items));
-closeModal();
-render();
-}
 
 function esc(s){
-return String(s).replace(/[&<>"']/g,m=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;",
-"'":"&#039;"
-}[m]));
+
+  return String(s ?? "").replace(
+    /[&<>"']/g,
+    m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[m])
+  );
+
 }
 
-render();
+
+function catsUI(){
+
+  document.getElementById("cats").innerHTML=
+
+    `<button
+      class="chip ${currentCat==="all"?"active":""}"
+      onclick="setCat('all')"
+    >
+      Hepsi
+    </button>`
+
+    +
+
+    categories.map(c=>
+
+      `<button
+        class="chip ${currentCat===c?"active":""}"
+        onclick="setCat('${c}')"
+      >
+        ${c}
+      </button>`
+
+    ).join("");
+
+}
+
+
+function setCat(c){
+
+  currentCat=c;
+
+  catsUI();
+
+  renderHome();
+
+}
+
+
+function renderHome(){
+
+  let q=
+    document
+      .getElementById("search")
+      .value
+      .toLowerCase();
+
+  let arr=
+    items.filter(
+      x=>
+        (currentCat==="all" || x.cat===currentCat)
+        &&
+        (!q || x.name.toLowerCase().includes(q))
+    );
+
+
+  document.getElementById("count").textContent=
+    arr.length+" kayıt";
+
+
+  document.getElementById("grid").innerHTML=
+
+    arr.length
+
+    ?
+
+    arr.map(
+
+      (x,i)=>
+
+      `<article class="item ${i%3===0?'big':''}">
+
+        <div class="pic">
+
+          ${
+            x.photo
+
+            ?
+
+            `<img
+              src="${esc(x.photo)}"
+              alt=""
+            >`
+
+            :
+
+            `<span class="emoji">
+              ${x.emoji||"✨"}
+            </span>`
+          }
+
+          <span class="scorepill">
+            ${x.score}/10
+          </span>
+
+        </div>
+
+
+        <div class="body">
+
+          <div class="name">
+            ${esc(x.name)}
+          </div>
+
+          <div class="meta">
+            ${esc(x.cat)} · ${esc(x.date||"")}
+          </div>
+
+
+          <div class="ratingrow">
+
+            <div class="rating">
+              ${x.score}/10
+            </div>
+
+            <span class="again">
+              ${esc(x.again)}
+            </span>
+
+          </div>
+
+
+          ${
+            x.note
+
+            ?
+
+            `<div class="note">
+              ${esc(x.note)}
+            </div>`
+
+            :
+
+            ""
+          }
+
+        </div>
+
+      </article>`
+
+    ).join("")
+
+    :
+
+    `<div class="empty">
+
+      Henüz burada bir şey yok.
+
+      <br><br>
+
+      <button
+        class="chip"
+        onclick="openAdd()"
+      >
+        ＋ İlk değerlendirmeyi ekle
+      </button>
+
+    </div>`;
+
+}
+
+
+function showView(id,btn){
+
+  document
+    .querySelectorAll(".view")
+    .forEach(
+      v=>v.classList.remove("active")
+    );
+
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav")
+    .forEach(
+      n=>n.classList.remove("active")
+    );
+
+
+  if(btn) btn.classList.add("active");
+
+
+  if(id==="diaryView")
+    renderDiary();
+
+
+  if(id==="statsView")
+    renderStats();
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function renderDiary(){
+
+  let arr=
+    [...items].sort(
+      (a,b)=>
+        (b.date||"").localeCompare(a.date||"")
+    );
+
+
+  document.getElementById("diaryList").innerHTML=
+
+    arr.length
+
+    ?
+
+    arr.map(
+
+      x=>
+
+      `<div class="listrow">
+
+        <div>
+
+          <strong>
+            ${esc(x.name)}
+          </strong>
+
+          <br>
+
+          <small>
+            ${esc(x.cat)} · ${esc(x.note||"")}
+          </small>
+
+        </div>
+
+        <strong>
+          ${esc(x.date||"")}
+        </strong>
+
+      </div>`
+
+    ).join("")
+
+    :
+
+    `<div class="empty">
+      Henüz diary kaydı yok.
+    </div>`;
+
+}
+
+
+function renderStats(){
+
+  let avg=
+    items.length
+
+    ?
+
+    (
+      items.reduce(
+        (a,x)=>a+Number(x.score||0),
+        0
+      )
+      /
+      items.length
+    ).toFixed(1)
+
+    :
+
+    "0";
+
+
+  let fav=
+    items.filter(
+      x=>x.again==="Tekrar alırım"
+    ).length;
+
+
+  document.getElementById("stats").innerHTML=
+
+    `<div class="stat">
+
+      <strong>${items.length}</strong>
+
+      <span>Total</span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong>${avg}</strong>
+
+      <span>Average</span>
+
+    </div>
+
+
+    <div class="stat">
+
+      <strong>${fav}</strong>
+
+      <span>Favorites</span>
+
+    </div>`;
+
+
+  let counts={};
+
+
+  items.forEach(
+    x=>
+      counts[x.cat]=(counts[x.cat]||0)+1
+  );
+
+
+  document.getElementById("catStats").innerHTML=
+
+    Object
+      .entries(counts)
+      .sort((a,b)=>b[1]-a[1])
+      .map(
+        ([c,n])=>
+
+        `<div class="listrow">
+
+          <strong>
+            ${esc(c)}
+          </strong>
+
+          <strong>
+            ${n}
+          </strong>
+
+        </div>`
+
+      )
+      .join("")
+
+      ||
+
+      `<div class="empty">
+        Henüz veri yok.
+      </div>`;
+
+}
+
+
+function updateSourceHint(){
+
+  const c=
+    document.getElementById("cat").value;
+
+  const h=
+    document.getElementById("sourceHint");
+
+
+  if(c==="Beauty")
+
+    h.textContent=
+      "Beauty seçili: Open Beauty Facts kataloğunda ürün adı / marka ile arama.";
+
+
+  else if(c==="Food")
+
+    h.textContent=
+      "Food seçili: Open Food Facts kataloğunda ürün adı / marka ile arama.";
+
+
+  else if(c==="Drinks")
+
+    h.textContent=
+      "Drinks seçili: Open Food Facts kataloğunda içecek ürünlerini arayacağım.";
+
+
+  else
+
+    h.textContent=
+      "Bu kategori için genel ürün kataloğu bağlantısı henüz yok; aşağıdan kendi kaydını oluşturabilirsin.";
+
+}
+
+
+function openAdd(){
+
+  document.getElementById("modal").style.display="flex";
+
+
+  chosenScore=8;
+  chosenAgain="Tekrar alırım";
+  photoData="";
+  selectedProduct=null;
+
+
+  document.getElementById("name").value="";
+  document.getElementById("productSearch").value="";
+  document.getElementById("note").value="";
+  document.getElementById("photo").value="";
+
+
+  document.getElementById("photoPreview").style.display="none";
+
+
+  document.getElementById("photoNote").textContent=
+    "İstersen kendi fotoğrafını da ekleyebilirsin.";
+
+
+  document.getElementById("catalogPhotoNote").textContent=
+    "Ürün kataloğundan seçtiğinde ürün görseli otomatik kaydedilecek.";
+
+
+  document.getElementById("productResults").innerHTML="";
+
+
+  document.getElementById("selectedProduct").style.display="none";
+
+
+  document.getElementById("cat").innerHTML=
+
+    categories
+      .map(c=>`<option>${c}</option>`)
+      .join("");
+
+
+  updateSourceHint();
+
+  drawScores();
+
+  drawChoices();
+
+}
+
+
+function closeModal(){
+
+  document.getElementById("modal").style.display="none";
+
+}
+
+
+function drawScores(){
+
+  document.getElementById("scores").innerHTML=
+
+    Array.from(
+      {length:11},
+      (_,i)=>
+
+      `<button
+        class="${i===chosenScore?"sel":""}"
+        onclick="chosenScore=${i};drawScores()"
+      >
+        ${i}
+      </button>`
+
+    ).join("");
+
+
+  document.getElementById("scoreLabel").textContent=
+    chosenScore;
+
+}
+
+
+function chooseAgain(b){
+
+  chosenAgain=b.dataset.v;
+
+  drawChoices();
+
+}
+
+
+function drawChoices(){
+
+  document
+    .querySelectorAll("#choices button")
+    .forEach(
+      b=>
+        b.classList.toggle(
+          "sel",
+          b.dataset.v===chosenAgain
+        )
+    );
+
+}
+
+
+function previewPhoto(e){
+
+  let f=e.target.files[0];
+
+  if(!f)return;
+
+
+  let r=new FileReader();
+
+
+  r.onload=()=>{
+
+    photoData=r.result;
+
+
+    document.getElementById("previewImg").src=
+      photoData;
+
+
+    document.getElementById("photoPreview").style.display=
+      "block";
+
+
+    document.getElementById("photoNote").textContent=
+      "Kendi fotoğrafın hazır ✓";
+
+  };
+
+
+  r.readAsDataURL(f);
+
+}
+
+
+function useManualProduct(){
+
+  const q=
+    document
+      .getElementById("productSearch")
+      .value
+      .trim();
+
+
+  if(
+    q &&
+    !document.getElementById("name").value.trim()
+  )
+
+    document.getElementById("name").value=q;
+
+
+  document.getElementById("productResults").innerHTML="";
+
+
+  toast(
+    "Tamam, ürünü kendin ekleyebilirsin."
+  );
+
+}
+
+
+function sourceForCategory(cat){
+
+  if(cat==="Beauty")
+
+    return {
+      label:"Open Beauty Facts",
+      base:"https://world.openbeautyfacts.org"
+    };
+
+
+  if(cat==="Food" || cat==="Drinks")
+
+    return {
+      label:"Open Food Facts",
+      base:"https://world.openfoodfacts.org"
+    };
+
+
+  return null;
+
+}
+
+
+async function searchProducts(){
+
+  const q=
+    document
+      .getElementById("productSearch")
+      .value
+      .trim();
+
+
+  const cat=
+    document.getElementById("cat").value;
+
+
+  const src=
+    sourceForCategory(cat);
+
+
+  const box=
+    document.getElementById("productResults");
+
+
+  if(!q){
+
+    toast(
+      "Önce bir ürün adı yaz."
+    );
+
+    return;
+
+  }
+
+
+  if(!src){
+
+    box.innerHTML=
+
+      `<div class="loading">
+        Bu kategori için otomatik katalog araması yok.
+        “Kendin ekle” ile devam edebilirsin.
+      </div>`;
+
+    return;
+
+  }
+
+
+  box.innerHTML=
+    `<div class="loading">
+      Ürünler aranıyor…
+    </div>`;
+
+
+  try{
+
+    const url=
+
+      `${src.base}/cgi/search.pl?search_terms=${encodeURIComponent(q)}&search_simple=1&action=process&json=1&page_size=8`;
+
+
+    const res=
+      await fetch(url);
+
+
+    if(!res.ok)
+      throw new Error("HTTP "+res.status);
+
+
+    const data=
+      await res.json();
+
+
+    const products=
+      (data.products||[])
+      .filter(
+        p=>
+          p.product_name ||
+          p.product_name_en ||
+          p.brands
+      );
+
+
+    if(!products.length){
+
+      box.innerHTML=
+
+        `<div class="loading">
+          Bulamadım.
+          “Kendin ekle” ile ürünü oluşturabilirsin.
+        </div>`;
+
+      return;
+
+    }
+
+
+    box.innerHTML=
+
+      products
+        .map(
+
+          (p,i)=>{
+
+            const name=
+              p.product_name ||
+              p.product_name_en ||
+              "İsimsiz ürün";
+
+
+            const brand=
+              p.brands || "";
+
+
+            const img=
+              p.image_front_small_url ||
+              p.image_front_url ||
+              p.image_url ||
+              "";
+
+
+            return `
+
+              <button
+                class="result"
+                onclick="selectProduct(${i})"
+              >
+
+                <div class="rpic">
+
+                  ${
+                    img
+
+                    ?
+
+                    `<img
+                      src="${esc(img)}"
+                      alt=""
+                    >`
+
+                    :
+
+                    `<span style="font-size:25px">
+                      📦
+                    </span>`
+                  }
+
+                </div>
+
+
+                <div class="rinfo">
+
+                  <div class="rname">
+                    ${esc(name)}
+                  </div>
+
+                  <div class="rbrand">
+                    ${esc(brand||src.label)}
+                  </div>
+
+                </div>
+
+
+                <div class="arrow">
+                  ›
+                </div>
+
+              </button>
+
+            `;
+
+          }
+
+        )
+        .join("");
+
+
+    window._lastProducts=products;
+
+    window._lastSource=src.label;
+
+
+  }catch(err){
+
+    console.error(err);
+
+
+    box.innerHTML=
+
+      `<div class="loading">
+        Ürün kataloğuna bağlanamadım.
+        İnternet bağlantını kontrol et veya
+        “Kendin ekle” ile devam et.
+      </div>`;
+
+  }
+
+}
+
+
+function selectProduct(i){
+
+  const p=
+    window._lastProducts?.[i];
+
+
+  if(!p)return;
+
+
+  const name=
+    p.product_name ||
+    p.product_name_en ||
+    "İsimsiz ürün";
+
+
+  const brand=
+    p.brands || "";
+
+
+  const img=
+    p.image_front_url ||
+    p.image_url ||
+    p.image_front_small_url ||
+    "";
+
+
+  selectedProduct={
+    name,
+    brand,
+    img,
+    code:p.code||"",
+    source:window._lastSource||""
+  };
+
+
+  document.getElementById("name").value=
+    brand
+      ? `${brand} ${name}`
+      : name;
+
+
+  document.getElementById("productResults").innerHTML="";
+
+
+  const box=
+    document.getElementById("selectedProduct");
+
+
+  box.style.display="flex";
+
+
+  box.innerHTML=
+
+    `
+
+    ${
+      img
+
+      ?
+
+      `<img
+        src="${esc(img)}"
+        alt=""
+      >`
+
+      :
+
+      `<div class="rpic">
+        📦
+      </div>`
+    }
+
+
+    <div style="min-width:0">
+
+      <strong>
+        ${esc(name)}
+      </strong>
+
+      <small>
+        ${esc(brand||selectedProduct.source)}
+      </small>
+
+    </div>
+
+
+    <button
+      class="clear-product"
+      onclick="clearProduct(event)"
+    >
+      Değiştir
+    </button>
+
+    `;
+
+
+  document.getElementById("catalogPhotoNote").textContent=
+
+    img
+
+      ?
+
+      "Ürün görseli otomatik seçildi ✓"
+
+      :
+
+      "Bu ürün için katalogda görsel bulunamadı.";
+
+}
+
+
+function clearProduct(e){
+
+  e.preventDefault();
+
+  e.stopPropagation();
+
+
+  selectedProduct=null;
+
+
+  document.getElementById("selectedProduct").style.display=
+    "none";
+
+
+  document.getElementById("catalogPhotoNote").textContent=
+    "Ürün kataloğundan seçtiğinde ürün görseli otomatik kaydedilecek.";
+
+}
+
+
+function saveItem(){
+
+  let name=
+    document
+      .getElementById("name")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    toast(
+      "Önce bir ürün/şey seç veya isim yaz."
+    );
+
+    return;
+
+  }
+
+
+  let finalPhoto=
+    photoData ||
+    selectedProduct?.img ||
+    "";
+
+
+  items.unshift({
+
+    name,
+
+    brand:
+      selectedProduct?.brand || "",
+
+    cat:
+      document.getElementById("cat").value,
+
+    score:
+      chosenScore,
+
+    again:
+      chosenAgain,
+
+    note:
+      document.getElementById("note").value.trim(),
+
+    photo:
+      finalPhoto,
+
+    productCode:
+      selectedProduct?.code || "",
+
+    productSource:
+      selectedProduct?.source || "",
+
+    emoji:
+      "✨",
+
+    date:
+      new Date().toISOString().slice(0,10)
+
+  });
+
+
+  save();
+
+  closeModal();
+
+  renderHome();
+
+  toast("Kaydedildi ✓");
+
+}
+
+
+function togglePublic(){
+
+  let s=
+    document.getElementById("publicSwitch");
+
+
+  s.classList.toggle("on");
+
+
+  localStorage.setItem(
+    "publicProfile",
+    s.classList.contains("on")
+  );
+
+}
+
+
+function toast(t){
+
+  let e=
+    document.getElementById("toast");
+
+
+  e.textContent=t;
+
+  e.classList.add("show");
+
+
+  setTimeout(
+    ()=>e.classList.remove("show"),
+    1800
+  );
+
+}
+
+
+catsUI();
+
+renderHome();
+
+drawScores();
+
+drawChoices();
+
 </script>
+
 </body>
 </html>
