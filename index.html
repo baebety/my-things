@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>My Things — kişisel puan günlüğün</title>
+<style>
+:root{--bg:#f7f3ed;--card:#fffdf9;--ink:#26231f;--muted:#857d72;--line:#e7dfd4;--accent:#b96f52;--soft:#efe5da;--shadow:0 10px 30px rgba(49,39,30,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:92px}
+header{padding:26px 20px 12px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:24px;letter-spacing:-1px}.sub{font-size:12px;color:var(--muted);margin-top:2px}
+.iconbtn{border:0;background:var(--card);width:42px;height:42px;border-radius:14px;font-size:20px;box-shadow:var(--shadow)}
+section{padding:10px 20px}.hero{padding:10px 20px 18px}
+.hero h1{font-size:34px;line-height:1.02;margin:8px 0}.hero p{color:var(--muted);margin:0}
+.search{display:flex;gap:9px;margin-top:18px}.search input{flex:1;border:1px solid var(--line);background:var(--card);border-radius:16px;padding:14px;font-size:15px;outline:none}.search button{border:[...]
+.toolbar{display:flex;gap:8px;overflow:auto;padding:4px 20px 14px}.chip{white-space:nowrap;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 13px;font-size:13px}.chip[...]
+.grid{display:grid;grid-template-columns:1.08fr .92fr;gap:12px}.item{background:var(--card);border:1px solid var(--line);border-radius:22px;overflow:hidden;box-shadow:var(--shadow)}.item.big{grid-row:[...]
+.empty{padding:42px 20px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:22px}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);background:rgba(255,253,249,.94);backdrop-filter:blur(16px);border-top:1px solid var(--line);display:grid;grid[...]
+.modal{position:fixed;inset:0;background:rgba(30,25,20,.42);display:none;align-items:flex-end;z-index:10}.sheet{width:min(520px,100%);margin:auto;background:var(--card);border-radius:28px 28px 0 0;pad[...]
+.score{display:grid;grid-template-columns:repeat(11,1fr);gap:4px}.score button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 0}.score button.sel{background:var(--ink);colo[...]
+.actions{display:flex;gap:8px;margin-top:18px}.actions button{flex:1;border:0;border-radius:15px;padding:14px;font-weight:700}.cancel{background:var(--soft)}.save{background:var(--ink);color:#fff}
+.note{font-size:11px;color:var(--muted);line-height:1.4}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="logo">my things.</div><div class="sub">what I tried lately</div></div><button class="iconbtn" onclick="openModal()">＋</button></header>
+<div class="hero"><h1>Your taste,<br>your archive.</h1><p>Denediğin her şeyi kendi zevkine göre kaydet.</p>
+<div class="search"><input id="search" placeholder="Bir şey ara..." oninput="render()"><button onclick="openModal()">＋</button></div></div>
+<div class="toolbar">
+<button class="chip active" data-cat="all" onclick="setCat(this,'all')">Hepsi</button>
+<button class="chip" data-cat="Beauty" onclick="setCat(this,'Beauty')">Beauty</button>
+<button class="chip" data-cat="Food" onclick="setCat(this,'Food')">Food</button>
+<button class="chip" data-cat="Drinks" onclick="setCat(this,'Drinks')">Drinks</button>
+<button class="chip" data-cat="Places" onclick="setCat(this,'Places')">Places</button>
+<button class="chip" data-cat="Experiences" onclick="setCat(this,'Experiences')">Experiences</button>
+</div>
+<section><div id="grid" class="grid"></div></section>
+</div>
+<nav class="bottom"><button class="nav" onclick="setCat(document.querySelector('.chip'),'all')"><b>⌂</b>Home</button><button class="nav" onclick="document.getElementById('search').focus()"><b>⌕</b>Search</button></nav>
+
+<div class="modal" id="modal" onclick="if(event.target===this)closeModal()"><div class="sheet">
+<h2>Yeni değerlendirme</h2>
+<div class="row"><label>Ne değerlendirdin?</label><input id="name" placeholder="Örn. CeraVe temizleyici"></div>
+<div class="row"><label>Kategori</label><select id="cat"><option>Beauty</option><option>Food</option><option>Drinks</option><option>Places</option><option>Experiences</option><option>Fashion</option></select></div>
+<div class="row"><label>Puanın — <strong id="scoreLabel">8</strong>/10</label><div class="score" id="scores"></div></div>
+<div class="row"><label>Tekrar?</label><div class="choices" id="choices"><button data-v="Tekrar alırım" onclick="chooseAgain(this)">Tekrar alırım</button><button data-v="Belki" onclick="chooseAgain(this)">Belki</button><button data-v="Hayır" onclick="chooseAgain(this)">Hayır</button></div></div>
+<div class="row"><label>Kısa yorum</label><textarea id="note" placeholder="Neyi sevdin, neyi sevmedin?"></textarea></div>
+<div class="row"><label>Fotoğraf (prototip)</label><input id="photo" type="file" accept="image/*" onchange="previewPhoto(event)"><div id="photoNote" class="note">İlk prototipte fotoğraf önizlemesi yalnızca arayüz için eklenmiştir.</div></div>
+<div class="actions"><button class="cancel" onclick="closeModal()">Vazgeç</button><button class="save" onclick="saveItem()">Kaydet</button></div>
+</div></div>
+<script>
+const seed=[
+{name:"Sky High Mascara",cat:"Beauty",score:8.5,again:"Tekrar alırım",note:"Günlük makyaj için çok iyi.",emoji:"💄"},
+{name:"Çilekli cheesecake",cat:"Food",score:9,again:"Tekrar alırım",note:"Tam sevdiğim gibi.",emoji:"🍰"},
+{name:"Iced latte",cat:"Drinks",score:7,again:"Belki",note:"Fena değil ama daha iyisini içtim.",emoji:"☕"},
+{name:"Sevdiğim kafe",cat:"Places",score:8.5,again:"Tekrar alırım",note:"Ortamı çok güzel.",emoji:"📍"}
+];
+let items=JSON.parse(localStorage.getItem("mythings")||"null")||seed;
+let currentCat="all", chosenScore=8, chosenAgain="Tekrar alırım", photoData="";
+function render(){
+ const q=document.getElementById("search").value.toLowerCase();
+ let arr=items.filter(x=>(currentCat==="all"||x.cat===currentCat)&&(!q||x.name.toLowerCase().includes(q)));
+ const grid=document.getElementById("grid");
+ grid.innerHTML=arr.length?arr.map((x,i)=>`<article class="item ${i%3===0?'big':''}"><div class="pic">${x.photo?`<img src="${x.photo}" style="width:100%;height:100%;object-fit:cover">`:x.emoji||"✨"}</div><div class="meta"><div class="top"><div><h3>${esc(x.name)}</h3><span>${x.cat}</span></div><div class="scorePill">${x.score.toFixed(1)}</div></div><p>${esc(x.note||"")}</p><div class="rowMeta"><span>${x.again}</span><span>★ ${x.score.toFixed(1)}/10</span></div></div></article>`).join(""):`<div class="empty">Bu filtrede bir şey yok.</div>`;
+}
+function setCat(el,c){currentCat=c;document.querySelectorAll(".chip").forEach(b=>b.classList.remove("active"));document.querySelector(`.chip[data-cat="${c}"]`)?.classList.add("active");render()}
+function openModal(){document.getElementById("modal").style.display="flex";chosenScore=8;chosenAgain="Tekrar alırım";photoData="";document.getElementById("name").value="";document.getElementById("cat").value="Beauty";document.getElementById("note").value="";document.getElementById("photo").value="";document.getElementById("photoNote").textContent="İlk prototipte fotoğraf önizlemesi yalnızca arayüz için eklenmiştir.";drawScores();drawChoices();document.getElementById("scoreLabel").textContent=chosenScore;}
+function closeModal(){document.getElementById("modal").style.display="none"}
+function drawScores(){let s=document.getElementById("scores");s.innerHTML="";for(let i=0;i<=10;i++){let b=document.createElement("button");b.textContent=i;b.className=i===chosenScore?"sel":"";b.onclick=()=>{chosenScore=i;document.getElementById("scoreLabel").textContent=i;drawScores()};s.appendChild(b)}}
+function chooseAgain(b){chosenAgain=b.dataset.v;drawChoices()}function drawChoices(){document.querySelectorAll("#choices button").forEach(b=>b.classList.toggle("sel",b.dataset.v===chosenAgain))}
+function previewPhoto(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{photoData=r.result;document.getElementById("photoNote").textContent="Fotoğraf hazır ✓"};r.readAsDataURL(f)}
+function saveItem(){let name=document.getElementById("name").value.trim();if(!name){alert("Önce neyi değerlendirdiğini yaz.");return}let x={name,cat:document.getElementById("cat").value,score:chosenScore,again:chosenAgain,note:document.getElementById("note").value.trim(),photo:photoData||""};items=[x,...items];localStorage.setItem("mythings",JSON.stringify(items));closeModal();render();}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]))}
+render();
+</script>
+</body></html>
