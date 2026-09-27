@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#f7f3ed">
+
 <title>my things.</title>
 
 <style>
@@ -383,7 +384,6 @@ section{padding:0 20px}
 }
 
 .switch.on{background:var(--ink)}
-
 .switch.on i{transform:translateX(20px)}
 
 .modal{
@@ -541,6 +541,8 @@ section{padding:0 20px}
   transform:translate(-50%,0)
 }
 
+/* PRODUCT SEARCH */
+
 .product-search{
   background:#f5eee6;
   border:1px solid var(--line);
@@ -690,6 +692,213 @@ section{padding:0 20px}
   margin-top:8px
 }
 
+/* LISTS */
+
+.lists-intro{
+  display:grid;
+  gap:12px;
+  margin-bottom:18px
+}
+
+.list-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  box-shadow:var(--shadow);
+  text-align:left;
+  width:100%
+}
+
+.list-card-top{
+  display:flex;
+  align-items:center;
+  gap:13px
+}
+
+.list-icon{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:var(--soft);
+  font-size:23px;
+  flex:none
+}
+
+.list-card-title{
+  font-size:17px;
+  font-weight:900
+}
+
+.list-card-sub{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px
+}
+
+.list-card-count{
+  margin-left:auto;
+  background:var(--bg);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  color:var(--muted)
+}
+
+.list-items{
+  margin-top:14px;
+  display:flex;
+  gap:7px;
+  overflow:hidden
+}
+
+.mini{
+  width:50px;
+  height:50px;
+  border-radius:13px;
+  background:#eee6dd;
+  overflow:hidden;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:20px
+}
+
+.mini img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.add-list-card{
+  border:1px dashed var(--line);
+  background:transparent;
+  box-shadow:none;
+  color:var(--muted)
+}
+
+.add-list-card .list-icon{
+  background:transparent;
+  border:1px dashed var(--line)
+}
+
+.list-detail{
+  display:none
+}
+
+.list-detail.active{
+  display:block
+}
+
+.backbtn{
+  border:0;
+  background:none;
+  padding:0;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:15px
+}
+
+.detail-title{
+  font-size:31px;
+  line-height:1;
+  letter-spacing:-1.5px;
+  font-weight:900;
+  margin:0
+}
+
+.detail-count{
+  color:var(--muted);
+  font-size:12px;
+  margin-top:7px;
+  margin-bottom:18px
+}
+
+.want-grid{
+  display:grid;
+  gap:10px
+}
+
+.want-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:10px;
+  display:flex;
+  align-items:center;
+  gap:11px
+}
+
+.want-pic{
+  width:64px;
+  height:64px;
+  border-radius:14px;
+  overflow:hidden;
+  background:#eee6dd;
+  flex:none;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:25px
+}
+
+.want-pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.want-info{
+  flex:1;
+  min-width:0
+}
+
+.want-name{
+  font-weight:850;
+  font-size:14px
+}
+
+.want-note{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:4px
+}
+
+.want-actions{
+  display:flex;
+  flex-direction:column;
+  gap:5px
+}
+
+.smallbtn{
+  border:0;
+  border-radius:10px;
+  padding:7px 8px;
+  background:var(--soft);
+  font-size:10px;
+  white-space:nowrap
+}
+
+.smallbtn.dark{
+  background:var(--ink);
+  color:#fff
+}
+
+.custom-list-modal .sheet h2{
+  margin-bottom:10px
+}
+
+.custom-list-example{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.4;
+  margin-bottom:12px
+}
+
 @media(max-width:430px){
   .hero h1{font-size:37px}
   .grid{gap:10px}
@@ -709,12 +918,17 @@ section{padding:0 20px}
     <div class="brand">my things.</div>
     <div class="sub">your taste, your archive.</div>
   </div>
+
   <button class="iconbtn" onclick="openAdd()">＋</button>
 </header>
+
+
+<!-- HOME -->
 
 <div id="homeView" class="view active">
 
   <div class="hero">
+
     <div class="eyebrow">my personal archive</div>
 
     <h1>Everything<br>I tried.</h1>
@@ -729,27 +943,89 @@ section{padding:0 20px}
         placeholder="Bir şey ara..."
         oninput="renderHome()"
       >
+
       <button onclick="openAdd()">＋</button>
     </div>
+
   </div>
+
 
   <div class="toolbar" id="cats"></div>
 
+
   <section>
+
     <div class="sectionhead">
       <h2>My things</h2>
       <span id="count" class="count"></span>
     </div>
 
     <div id="grid" class="grid"></div>
+
   </section>
 
 </div>
 
 
+<!-- LISTS -->
+
+<div id="listsView" class="view">
+
+  <div class="hero">
+
+    <div class="eyebrow">your watchlist, wishlist & more</div>
+
+    <h1>Things<br>I want.</h1>
+
+    <p>
+      Henüz yapmadığın, almadığın, izlemediğin veya okumadığın şeyleri burada tut.
+    </p>
+
+  </div>
+
+
+  <section>
+
+    <div id="listsHome" class="lists-intro"></div>
+
+
+    <div id="listDetail" class="list-detail">
+
+      <button
+        class="backbtn"
+        onclick="showListsHome()"
+      >
+        ← Tüm listeler
+      </button>
+
+      <h2
+        id="detailTitle"
+        class="detail-title"
+      ></h2>
+
+      <div
+        id="detailCount"
+        class="detail-count"
+      ></div>
+
+      <div
+        id="wantGrid"
+        class="want-grid"
+      ></div>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+<!-- DIARY -->
+
 <div id="diaryView" class="view">
 
   <div class="hero">
+
     <div class="eyebrow">diary</div>
 
     <h1>What I tried,<br>day by day.</h1>
@@ -757,18 +1033,24 @@ section{padding:0 20px}
     <p>
       Eklediğin her şey tarihine göre burada.
     </p>
+
   </div>
 
   <section>
+
     <div id="diaryList" class="list"></div>
+
   </section>
 
 </div>
 
 
+<!-- STATS -->
+
 <div id="statsView" class="view">
 
   <div class="hero">
+
     <div class="eyebrow">your taste</div>
 
     <h1>Your<br>stats.</h1>
@@ -776,6 +1058,7 @@ section{padding:0 20px}
     <p>
       Kendi zevk profilinin küçük özeti.
     </p>
+
   </div>
 
   <section>
@@ -791,9 +1074,12 @@ section{padding:0 20px}
 </div>
 
 
+<!-- PROFILE -->
+
 <div id="profileView" class="view">
 
   <div class="hero">
+
     <div class="eyebrow">profile</div>
 
     <h1>Your<br>space.</h1>
@@ -801,6 +1087,7 @@ section{padding:0 20px}
     <p>
       Profilin ve kişisel ayarların.
     </p>
+
   </div>
 
   <section>
@@ -818,11 +1105,13 @@ section{padding:0 20px}
       <div class="toggle">
 
         <div>
+
           <strong>Public profile</strong>
 
           <div style="font-size:11px;color:var(--muted);margin-top:3px">
             Profilini başkalarının görebilmesine izin ver.
           </div>
+
         </div>
 
         <button
@@ -842,6 +1131,8 @@ section{padding:0 20px}
 </div>
 
 
+<!-- BOTTOM NAV -->
+
 <div class="bottom">
 
   <button
@@ -852,13 +1143,15 @@ section{padding:0 20px}
     Home
   </button>
 
+
   <button
     class="nav"
-    onclick="showView('diaryView',this)"
+    onclick="showView('listsView',this)"
   >
-    <b>◷</b>
-    Diary
+    <b>▤</b>
+    Lists
   </button>
+
 
   <button
     class="nav"
@@ -868,13 +1161,15 @@ section{padding:0 20px}
     Add
   </button>
 
+
   <button
     class="nav"
-    onclick="showView('statsView',this)"
+    onclick="showView('diaryView',this)"
   >
-    <b>◌</b>
-    Stats
+    <b>◷</b>
+    Diary
   </button>
+
 
   <button
     class="nav"
@@ -886,6 +1181,8 @@ section{padding:0 20px}
 
 </div>
 
+
+<!-- ADD MODAL -->
 
 <div id="modal" class="modal">
 
@@ -917,6 +1214,7 @@ section{padding:0 20px}
 
       </div>
 
+
       <div id="sourceHint" class="sourcehint"></div>
 
       <div id="productResults" class="results"></div>
@@ -926,12 +1224,14 @@ section{padding:0 20px}
         class="selected-product"
       ></div>
 
+
       <button
         class="manual-link"
         onclick="useManualProduct()"
       >
         Ürünü bulamadın mı? Kendin ekle →
       </button>
+
 
       <div class="api-note">
         Ürün kataloğundan bir sonuç seçersen isim, marka ve mevcut ürün görseli otomatik eklenir.
@@ -956,7 +1256,10 @@ section{padding:0 20px}
 
       <label>Kategori</label>
 
-      <select id="cat" onchange="updateSourceHint()"></select>
+      <select
+        id="cat"
+        onchange="updateSourceHint()"
+      ></select>
 
     </div>
 
@@ -1028,11 +1331,20 @@ section{padding:0 20px}
         onchange="previewPhoto(event)"
       >
 
-      <div id="photoPreview" class="photo-preview">
-        <img id="previewImg" alt="">
+      <div
+        id="photoPreview"
+        class="photo-preview"
+      >
+        <img
+          id="previewImg"
+          alt=""
+        >
       </div>
 
-      <div id="photoNote" class="notehint">
+      <div
+        id="photoNote"
+        class="notehint"
+      >
         İstersen kendi fotoğrafını da ekleyebilirsin.
       </div>
 
@@ -1069,10 +1381,141 @@ section{padding:0 20px}
 </div>
 
 
-<div id="toast" class="toast"></div>
+<!-- ADD TO LIST MODAL -->
+
+<div
+  id="wantModal"
+  class="modal"
+>
+
+  <div class="sheet">
+
+    <div class="grab"></div>
+
+    <h2 id="wantModalTitle">
+      Listeye ekle
+    </h2>
+
+
+    <div class="row">
+
+      <label>
+        Ne eklemek istiyorsun?
+      </label>
+
+      <input
+        id="wantName"
+        placeholder="Örn. The Bear"
+      >
+
+    </div>
+
+
+    <div class="row">
+
+      <label>
+        Kısa not
+      </label>
+
+      <textarea
+        id="wantNote"
+        placeholder="Neden bunu istiyorsun?"
+      ></textarea>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="cancel"
+        onclick="closeWantModal()"
+      >
+        Vazgeç
+      </button>
+
+      <button
+        class="save"
+        onclick="saveWant()"
+      >
+        Listeye ekle
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- CUSTOM LIST MODAL -->
+
+<div
+  id="customListModal"
+  class="modal custom-list-modal"
+>
+
+  <div class="sheet">
+
+    <div class="grab"></div>
+
+    <h2>
+      Yeni liste
+    </h2>
+
+    <div class="custom-list-example">
+      Örneğin “2026'da deneyeceklerim”, “Arkadaşlarımın önerdikleri” veya istediğin herhangi bir liste.
+    </div>
+
+
+    <div class="row">
+
+      <label>
+        Liste adı
+      </label>
+
+      <input
+        id="customListName"
+        placeholder="Örn. 2026'da deneyeceklerim"
+      >
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="cancel"
+        onclick="closeCustomListModal()"
+      >
+        Vazgeç
+      </button>
+
+      <button
+        class="save"
+        onclick="saveCustomList()"
+      >
+        Oluştur
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<div
+  id="toast"
+  class="toast"
+></div>
 
 
 <script>
+
+/* =========================
+   BASIC DATA
+========================= */
 
 const categories=[
   "Beauty",
@@ -1124,13 +1567,73 @@ let items=
   ) || seed;
 
 
+let wants=
+  JSON.parse(
+    localStorage.getItem("mythings_wants_v1") || "null"
+  ) || [];
+
+
+let customLists=
+  JSON.parse(
+    localStorage.getItem("mythings_custom_lists_v1") || "null"
+  ) || [];
+
+
 let currentCat="all";
 let chosenScore=8;
 let chosenAgain="Tekrar alırım";
 let photoData="";
 let selectedProduct=null;
-let searchTimer=null;
+let currentListId=null;
 
+
+/* =========================
+   PREDEFINED LISTS
+========================= */
+
+const defaultLists=[
+
+  {
+    id:"try",
+    title:"Denemek istediklerim",
+    icon:"🧪",
+    description:"Henüz denemediğin ama merak ettiğin şeyler."
+  },
+
+  {
+    id:"buy",
+    title:"Almak istediklerim",
+    icon:"🛍️",
+    description:"Bir gün almak istediğin ürünler."
+  },
+
+  {
+    id:"watch",
+    title:"İzleyeceklerim",
+    icon:"🎬",
+    description:"Film, dizi, belgesel ve diğer izlemek istediklerin."
+  },
+
+  {
+    id:"read",
+    title:"Okuyacaklarım",
+    icon:"📚",
+    description:"Okumak istediğin kitaplar ve diğer şeyler."
+  },
+
+  {
+    id:"go",
+    title:"Gitmek istediklerim",
+    icon:"📍",
+    description:"Gitmek, görmek veya deneyimlemek istediğin yerler."
+  }
+
+];
+
+
+/* =========================
+   SAVE HELPERS
+========================= */
 
 function save(){
 
@@ -1141,6 +1644,30 @@ function save(){
 
 }
 
+
+function saveWants(){
+
+  localStorage.setItem(
+    "mythings_wants_v1",
+    JSON.stringify(wants)
+  );
+
+}
+
+
+function saveCustomLists(){
+
+  localStorage.setItem(
+    "mythings_custom_lists_v1",
+    JSON.stringify(customLists)
+  );
+
+}
+
+
+/* =========================
+   ESCAPE
+========================= */
 
 function esc(s){
 
@@ -1157,6 +1684,10 @@ function esc(s){
 
 }
 
+
+/* =========================
+   HOME
+========================= */
 
 function catsUI(){
 
@@ -1203,6 +1734,7 @@ function renderHome(){
       .getElementById("search")
       .value
       .toLowerCase();
+
 
   let arr=
     items.filter(
@@ -1319,6 +1851,10 @@ function renderHome(){
 }
 
 
+/* =========================
+   NAVIGATION
+========================= */
+
 function showView(id,btn){
 
   document
@@ -1340,7 +1876,8 @@ function showView(id,btn){
     );
 
 
-  if(btn) btn.classList.add("active");
+  if(btn)
+    btn.classList.add("active");
 
 
   if(id==="diaryView")
@@ -1351,6 +1888,10 @@ function showView(id,btn){
     renderStats();
 
 
+  if(id==="listsView")
+    renderListsHome();
+
+
   window.scrollTo({
     top:0,
     behavior:"smooth"
@@ -1358,6 +1899,10 @@ function showView(id,btn){
 
 }
 
+
+/* =========================
+   DIARY
+========================= */
 
 function renderDiary(){
 
@@ -1411,6 +1956,10 @@ function renderDiary(){
 }
 
 
+/* =========================
+   STATS
+========================= */
+
 function renderStats(){
 
   let avg=
@@ -1441,29 +1990,18 @@ function renderStats(){
   document.getElementById("stats").innerHTML=
 
     `<div class="stat">
-
       <strong>${items.length}</strong>
-
       <span>Total</span>
-
     </div>
 
-
     <div class="stat">
-
       <strong>${avg}</strong>
-
       <span>Average</span>
-
     </div>
 
-
     <div class="stat">
-
       <strong>${fav}</strong>
-
       <span>Favorites</span>
-
     </div>`;
 
 
@@ -1496,8 +2034,7 @@ function renderStats(){
 
         </div>`
 
-      )
-      .join("")
+      ).join("")
 
       ||
 
@@ -1507,6 +2044,617 @@ function renderStats(){
 
 }
 
+
+/* =========================
+   LIST SYSTEM
+========================= */
+
+function allLists(){
+
+  return [
+    ...defaultLists,
+    ...customLists
+  ];
+
+}
+
+
+function getList(id){
+
+  return allLists().find(
+    x=>x.id===id
+  );
+
+}
+
+
+function getWants(id){
+
+  return wants.filter(
+    x=>x.listId===id
+  );
+
+}
+
+
+function renderListsHome(){
+
+  document.getElementById("listsHome").style.display="grid";
+
+  document.getElementById("listDetail").classList.remove("active");
+
+
+  let html=allLists().map(
+
+    list=>{
+
+      let arr=getWants(list.id);
+
+      let previews=arr.slice(0,5).map(
+
+        x=>
+
+        `<div class="mini">
+
+          ${
+            x.photo
+
+            ?
+
+            `<img src="${esc(x.photo)}" alt="">`
+
+            :
+
+            `${x.emoji||"✨"}`
+          }
+
+        </div>`
+
+      ).join("");
+
+
+      if(!previews)
+
+        previews=
+          `<div
+            class="mini"
+            style="font-size:13px;color:var(--muted)"
+          >
+            +
+          </div>`;
+
+
+      return `
+
+        <button
+          class="list-card"
+          onclick="openList('${esc(list.id)}')"
+        >
+
+          <div class="list-card-top">
+
+            <div class="list-icon">
+              ${list.icon}
+            </div>
+
+            <div>
+
+              <div class="list-card-title">
+                ${esc(list.title)}
+              </div>
+
+              <div class="list-card-sub">
+                ${esc(list.description)}
+              </div>
+
+            </div>
+
+            <div class="list-card-count">
+              ${arr.length}
+            </div>
+
+          </div>
+
+
+          <div class="list-items">
+            ${previews}
+          </div>
+
+        </button>
+
+      `;
+
+    }
+
+  ).join("");
+
+
+  html+=`
+
+    <button
+      class="list-card add-list-card"
+      onclick="openCustomListModal()"
+    >
+
+      <div class="list-card-top">
+
+        <div class="list-icon">
+          ＋
+        </div>
+
+        <div>
+
+          <div class="list-card-title">
+            Kendi listeni oluştur
+          </div>
+
+          <div class="list-card-sub">
+            Tamamen sana ait yeni bir liste.
+          </div>
+
+        </div>
+
+      </div>
+
+    </button>
+
+  `;
+
+
+  document.getElementById("listsHome").innerHTML=html;
+
+}
+
+
+function openList(id){
+
+  currentListId=id;
+
+  let list=getList(id);
+
+  if(!list)
+    return;
+
+
+  document.getElementById("listsHome").style.display="none";
+
+
+  document
+    .getElementById("listDetail")
+    .classList.add("active");
+
+
+  document.getElementById("detailTitle").textContent=
+    list.icon+" "+list.title;
+
+
+  renderListDetail();
+
+}
+
+
+function showListsHome(){
+
+  currentListId=null;
+
+  document.getElementById("listDetail").classList.remove("active");
+
+  document.getElementById("listsHome").style.display="grid";
+
+  renderListsHome();
+
+}
+
+
+function renderListDetail(){
+
+  let list=getList(currentListId);
+
+  let arr=getWants(currentListId);
+
+
+  document.getElementById("detailCount").textContent=
+    arr.length
+    +" "
+    +(arr.length===1?"kayıt":"kayıt");
+
+
+  document.getElementById("wantGrid").innerHTML=
+
+    `
+
+    <button
+      class="list-card add-list-card"
+      onclick="openWantModal('${esc(currentListId)}')"
+      style="padding:14px"
+    >
+
+      ＋ Bu listeye bir şey ekle
+
+    </button>
+
+    `
+
+    +
+
+    (
+
+      arr.length
+
+      ?
+
+      arr.map(
+
+        x=>
+
+        `<div class="want-item">
+
+          <div class="want-pic">
+
+            ${
+              x.photo
+
+              ?
+
+              `<img
+                src="${esc(x.photo)}"
+                alt=""
+              >`
+
+              :
+
+              `${x.emoji||"✨"}`
+            }
+
+          </div>
+
+
+          <div class="want-info">
+
+            <div class="want-name">
+              ${esc(x.name)}
+            </div>
+
+            ${
+              x.note
+
+              ?
+
+              `<div class="want-note">
+                ${esc(x.note)}
+              </div>`
+
+              :
+
+              `<div class="want-note">
+                Henüz tamamlanmadı
+              </div>`
+            }
+
+          </div>
+
+
+          <div class="want-actions">
+
+            <button
+              class="smallbtn dark"
+              onclick="completeWant('${esc(x.id)}')"
+            >
+              ${completionText(list)}
+            </button>
+
+            <button
+              class="smallbtn"
+              onclick="deleteWant('${esc(x.id)}')"
+            >
+              Sil
+            </button>
+
+          </div>
+
+        </div>`
+
+      ).join("")
+
+      :
+
+      `<div class="empty">
+        Bu liste henüz boş.
+        <br><br>
+        İlk şeyi ekle ✨
+      </div>`
+
+    );
+
+}
+
+
+function completionText(list){
+
+  if(list.id==="watch")
+    return "İzledim";
+
+  if(list.id==="read")
+    return "Okudum";
+
+  if(list.id==="go")
+    return "Gittim";
+
+  if(list.id==="buy")
+    return "Aldım";
+
+  return "Denedim";
+
+}
+
+
+/* =========================
+   ADD TO LIST
+========================= */
+
+function openWantModal(listId){
+
+  currentListId=listId;
+
+  let list=getList(listId);
+
+  document.getElementById("wantModalTitle").textContent=
+    list.icon+" "+list.title;
+
+
+  document.getElementById("wantName").value="";
+  document.getElementById("wantNote").value="";
+
+
+  document.getElementById("wantModal").style.display="flex";
+
+}
+
+
+function closeWantModal(){
+
+  document.getElementById("wantModal").style.display="none";
+
+}
+
+
+function saveWant(){
+
+  let name=
+    document
+      .getElementById("wantName")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    toast("Bir isim yaz.");
+
+    return;
+
+  }
+
+
+  wants.unshift({
+
+    id:
+      "want_"+Date.now()+"_"+Math.random()
+        .toString(36)
+        .slice(2,7),
+
+    listId:
+      currentListId,
+
+    name,
+
+    note:
+      document
+        .getElementById("wantNote")
+        .value
+        .trim(),
+
+    emoji:
+      getList(currentListId)?.icon || "✨",
+
+    date:
+      new Date().toISOString().slice(0,10)
+
+  });
+
+
+  saveWants();
+
+  closeWantModal();
+
+  renderListDetail();
+
+  toast("Listeye eklendi ✓");
+
+}
+
+
+function deleteWant(id){
+
+  if(!confirm("Bu şeyi listeden kaldırmak istiyor musun?"))
+    return;
+
+
+  wants=
+    wants.filter(
+      x=>x.id!==id
+    );
+
+
+  saveWants();
+
+  renderListDetail();
+
+  toast("Listeden kaldırıldı");
+
+}
+
+
+/* =========================
+   COMPLETE WANT
+========================= */
+
+function completeWant(id){
+
+  let item=
+    wants.find(
+      x=>x.id===id
+    );
+
+
+  if(!item)
+    return;
+
+
+  let list=getList(item.listId);
+
+  if(!list)
+    return;
+
+
+  /*
+    Liste kaydını normal arşive dönüştürüyoruz.
+    Böylece kullanıcı deneyimini tamamladıktan
+    sonra puanlayabiliyor.
+  */
+
+
+  closeWantModal();
+
+
+  document.getElementById("modal").style.display="flex";
+
+
+  chosenScore=8;
+  chosenAgain="Tekrar alırım";
+  photoData="";
+  selectedProduct=null;
+
+
+  document.getElementById("name").value=
+    item.name;
+
+
+  document.getElementById("productSearch").value=
+    "";
+
+
+  document.getElementById("note").value=
+    item.note || "";
+
+
+  document.getElementById("photo").value="";
+
+
+  document.getElementById("photoPreview").style.display=
+    "none";
+
+
+  document.getElementById("productResults").innerHTML="";
+
+
+  document.getElementById("selectedProduct").style.display=
+    "none";
+
+
+  document.getElementById("cat").innerHTML=
+
+    categories
+      .map(c=>`<option>${c}</option>`)
+      .join("");
+
+
+  updateSourceHint();
+
+  drawScores();
+
+  drawChoices();
+
+
+  window._completingWant=id;
+
+
+  toast(
+    "Şimdi puanlayıp arşivine ekle ✨"
+  );
+
+}
+
+
+/* =========================
+   CUSTOM LISTS
+========================= */
+
+function openCustomListModal(){
+
+  document.getElementById("customListName").value="";
+
+  document.getElementById("customListModal").style.display="flex";
+
+}
+
+
+function closeCustomListModal(){
+
+  document.getElementById("customListModal").style.display="none";
+
+}
+
+
+function saveCustomList(){
+
+  let name=
+    document
+      .getElementById("customListName")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    toast("Liste adı yaz.");
+
+    return;
+
+  }
+
+
+  let id=
+    "custom_"+Date.now();
+
+
+  customLists.push({
+
+    id,
+
+    title:name,
+
+    icon:"✦",
+
+    description:"Kendi oluşturduğun liste."
+
+  });
+
+
+  saveCustomLists();
+
+  closeCustomListModal();
+
+  renderListsHome();
+
+  toast("Yeni liste oluşturuldu ✓");
+
+}
+
+
+/* =========================
+   PRODUCT SOURCE
+========================= */
 
 function updateSourceHint(){
 
@@ -1543,6 +2691,10 @@ function updateSourceHint(){
 }
 
 
+/* =========================
+   ADD ITEM
+========================= */
+
 function openAdd(){
 
   document.getElementById("modal").style.display="flex";
@@ -1552,6 +2704,9 @@ function openAdd(){
   chosenAgain="Tekrar alırım";
   photoData="";
   selectedProduct=null;
+
+
+  window._completingWant=null;
 
 
   document.getElementById("name").value="";
@@ -1648,11 +2803,16 @@ function drawChoices(){
 }
 
 
+/* =========================
+   PHOTO
+========================= */
+
 function previewPhoto(e){
 
   let f=e.target.files[0];
 
-  if(!f)return;
+  if(!f)
+    return;
 
 
   let r=new FileReader();
@@ -1682,6 +2842,10 @@ function previewPhoto(e){
 }
 
 
+/* =========================
+   MANUAL PRODUCT
+========================= */
+
 function useManualProduct(){
 
   const q=
@@ -1708,6 +2872,10 @@ function useManualProduct(){
 
 }
 
+
+/* =========================
+   PRODUCT API
+========================= */
 
 function sourceForCategory(cat){
 
@@ -1936,7 +3104,8 @@ function selectProduct(i){
     window._lastProducts?.[i];
 
 
-  if(!p)return;
+  if(!p)
+    return;
 
 
   const name=
@@ -2061,6 +3230,10 @@ function clearProduct(e){
 }
 
 
+/* =========================
+   SAVE ITEM
+========================= */
+
 function saveItem(){
 
   let name=
@@ -2126,6 +3299,26 @@ function saveItem(){
 
   save();
 
+
+  /*
+    Eğer bir liste öğesinden geldiysek
+    artık o şeyi listeden çıkarıyoruz.
+  */
+
+  if(window._completingWant){
+
+    wants=
+      wants.filter(
+        x=>x.id!==window._completingWant
+      );
+
+    saveWants();
+
+    window._completingWant=null;
+
+  }
+
+
   closeModal();
 
   renderHome();
@@ -2134,6 +3327,10 @@ function saveItem(){
 
 }
 
+
+/* =========================
+   PROFILE
+========================= */
 
 function togglePublic(){
 
@@ -2151,6 +3348,10 @@ function togglePublic(){
 
 }
 
+
+/* =========================
+   TOAST
+========================= */
 
 function toast(t){
 
@@ -2171,6 +3372,10 @@ function toast(t){
 }
 
 
+/* =========================
+   START
+========================= */
+
 catsUI();
 
 renderHome();
@@ -2178,6 +3383,8 @@ renderHome();
 drawScores();
 
 drawChoices();
+
+renderListsHome();
 
 </script>
 
