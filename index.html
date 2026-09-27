@@ -18,6 +18,7 @@
   --line:#e5ddd2;
   --accent:#b66b52;
   --soft:#f1e6dc;
+  --green:#e6eee4;
   --shadow:0 12px 34px rgba(45,36,28,.08)
 }
 
@@ -899,12 +900,179 @@ section{padding:0 20px}
   margin-bottom:12px
 }
 
+/* RECOMMENDATIONS */
+
+.recommend-section{
+  margin:4px 0 25px
+}
+
+.recommend-box{
+  background:linear-gradient(145deg,#fffdfa,#f3e8dd);
+  border:1px solid var(--line);
+  border-radius:27px;
+  padding:18px;
+  box-shadow:var(--shadow)
+}
+
+.recommend-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:15px
+}
+
+.recommend-title{
+  font-size:21px;
+  font-weight:900;
+  letter-spacing:-.7px
+}
+
+.recommend-sub{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.4;
+  margin-top:4px
+}
+
+.recommend-spark{
+  width:43px;
+  height:43px;
+  border-radius:15px;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  flex:none
+}
+
+.recommend-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px
+}
+
+.recommend-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:19px;
+  overflow:hidden;
+  min-width:0
+}
+
+.recommend-pic{
+  height:135px;
+  background:linear-gradient(135deg,#e8ded3,#f8f1e8);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden
+}
+
+.recommend-pic img{
+  width:100%;
+  height:100%;
+  object-fit:cover
+}
+
+.recommend-emoji{
+  font-size:42px
+}
+
+.recommend-body{
+  padding:11px
+}
+
+.recommend-name{
+  font-size:14px;
+  line-height:1.2;
+  font-weight:900
+}
+
+.recommend-brand{
+  color:var(--muted);
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.6px;
+  margin-top:5px
+}
+
+.recommend-reason{
+  font-size:10px;
+  line-height:1.35;
+  color:#625a52;
+  margin-top:7px
+}
+
+.recommend-actions{
+  display:flex;
+  gap:5px;
+  margin-top:9px
+}
+
+.recommend-actions button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:8px 4px;
+  font-size:9px;
+  font-weight:800
+}
+
+.rec-list{
+  background:var(--soft)
+}
+
+.rec-hide{
+  background:#f2eee9
+}
+
+.recommend-empty{
+  text-align:center;
+  padding:10px 8px 3px
+}
+
+.recommend-empty-icon{
+  font-size:30px
+}
+
+.recommend-empty-title{
+  font-size:15px;
+  font-weight:900;
+  margin-top:7px
+}
+
+.recommend-empty-text{
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.45;
+  margin-top:5px
+}
+
+.taste-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:11px
+}
+
+.taste-tag{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:6px 9px;
+  font-size:10px;
+  color:#625a52
+}
+
 @media(max-width:430px){
   .hero h1{font-size:37px}
   .grid{gap:10px}
   .item{border-radius:20px}
   .pic{height:155px}
   .item.big .pic{height:245px}
+  .recommend-pic{height:125px}
 }
 </style>
 </head>
@@ -951,6 +1119,24 @@ section{padding:0 20px}
 
 
   <div class="toolbar" id="cats"></div>
+
+
+  <!-- RECOMMENDATIONS -->
+
+  <section class="recommend-section">
+
+    <div class="sectionhead">
+
+      <h2>✨ Sana göre</h2>
+
+    </div>
+
+    <div
+      id="recommendations"
+      class="recommend-box"
+    ></div>
+
+  </section>
 
 
   <section>
@@ -1533,6 +1719,7 @@ const categories=[
 const seed=[
   {
     name:"Sky High Mascara",
+    brand:"Maybelline",
     cat:"Beauty",
     score:9,
     again:"Tekrar alırım",
@@ -1542,6 +1729,7 @@ const seed=[
   },
   {
     name:"Yabanmersinli cheesecake",
+    brand:"",
     cat:"Food",
     score:9,
     again:"Tekrar alırım",
@@ -1551,6 +1739,7 @@ const seed=[
   },
   {
     name:"Iced latte",
+    brand:"",
     cat:"Drinks",
     score:7,
     again:"Belki",
@@ -1794,7 +1983,7 @@ function renderHome(){
           </div>
 
           <div class="meta">
-            ${esc(x.cat)} · ${esc(x.date||"")}
+            ${esc(x.brand ? x.brand+" · " : "")}${esc(x.cat)} · ${esc(x.date||"")}
           </div>
 
 
@@ -1852,6 +2041,881 @@ function renderHome(){
 
 
 /* =========================
+   PERSONAL RECOMMENDATION ENGINE
+========================= */
+
+/*
+  Bu ilk sürüm gerçek bir yapay zekâ değil.
+  Kullanıcının kendi arşivindeki sinyallerden
+  basit ve açıklanabilir öneriler oluşturuyor.
+
+  Daha sonra gerçek film/ürün/kitap API'leri
+  bağlandığında aynı sistem çok daha güçlü hale
+  getirilebilir.
+*/
+
+function normalized(s){
+
+  return String(s||"")
+    .toLowerCase()
+    .trim();
+
+}
+
+
+function tasteData(){
+
+  const valid=
+    items.filter(
+      x=>Number.isFinite(Number(x.score))
+    );
+
+
+  const categoryScores={};
+  const brands={};
+  const againBrands={};
+
+
+  valid.forEach(x=>{
+
+    const cat=x.cat||"Other";
+    const score=Number(x.score||0);
+
+
+    if(!categoryScores[cat])
+      categoryScores[cat]={
+        total:0,
+        count:0
+      };
+
+
+    categoryScores[cat].total+=score;
+    categoryScores[cat].count++;
+
+
+    if(x.brand){
+
+      const brand=normalized(x.brand);
+
+      if(!brands[brand]){
+
+        brands[brand]={
+          name:x.brand,
+          total:0,
+          count:0,
+          repeat:0
+        };
+
+      }
+
+
+      brands[brand].total+=score;
+      brands[brand].count++;
+
+
+      if(
+        x.again==="Tekrar alırım"
+      ){
+
+        brands[brand].repeat++;
+
+      }
+
+    }
+
+  });
+
+
+  const bestCategories=
+    Object.entries(categoryScores)
+      .map(
+        ([cat,data])=>({
+          cat,
+          avg:data.total/data.count,
+          count:data.count
+        })
+      )
+      .sort(
+        (a,b)=>b.avg-a.avg
+      );
+
+
+  const bestBrands=
+    Object.values(brands)
+      .map(
+        b=>({
+          ...b,
+          avg:b.total/b.count
+        })
+      )
+      .filter(
+        b=>b.avg>=7
+      )
+      .sort(
+        (a,b)=>{
+
+          if(b.avg!==a.avg)
+            return b.avg-a.avg;
+
+          return b.count-a.count;
+
+        }
+      );
+
+
+  return {
+    valid,
+    bestCategories,
+    bestBrands
+  };
+
+}
+
+
+/*
+  Burada gerçek öneri havuzu oluşturuyoruz.
+
+  Ürün kataloglarından gelen kayıtlar ileride
+  doğrudan bu havuza eklenebilir.
+
+  Şimdilik mevcut arşivdeki ürünleri kullanarak
+  "benzer şeyler" mantığını hazırlıyoruz.
+*/
+
+function buildLocalRecommendations(){
+
+  const data=tasteData();
+
+  const result=[];
+
+  /*
+    Kullanıcının yüksek puan verdiği şeylerin
+    markalarını ve kategorilerini çıkarıyoruz.
+  */
+
+  const liked=
+    data.valid
+      .filter(
+        x=>Number(x.score)>=8
+      );
+
+
+  /*
+    Arşivdeki ürünleri doğrudan tekrar önermiyoruz.
+  */
+
+  const alreadyHave=
+    new Set(
+      items.map(
+        x=>normalized(x.name)
+      )
+    );
+
+
+  /*
+    Aynı markadan henüz arşivde olmayan
+    katalog ürünü ileride buraya gelecek.
+  */
+
+  /*
+    Şimdilik kullanıcının güçlü tercihlerini
+    görsel bir "taste insight" olarak gösteriyoruz.
+  */
+
+  data.bestBrands
+    .slice(0,3)
+    .forEach(
+      b=>{
+
+        result.push({
+
+          type:"insight",
+
+          name:b.name,
+
+          brand:b.name,
+
+          emoji:"❤️",
+
+          reason:
+            `${b.name} ürünlerine ortalama ${b.avg.toFixed(1)}/10 veriyorsun.`
+
+        });
+
+      }
+    );
+
+
+  data.bestCategories
+    .filter(
+      x=>x.avg>=8
+    )
+    .slice(0,3)
+    .forEach(
+      c=>{
+
+        result.push({
+
+          type:"category",
+
+          name:c.cat,
+
+          brand:"",
+
+          emoji:
+            categoryEmoji(c.cat),
+
+          reason:
+            `${c.cat} kategorisindeki puan ortalaman ${c.avg.toFixed(1)}/10.`
+
+        });
+
+      }
+    );
+
+
+  return result;
+
+}
+
+
+function categoryEmoji(cat){
+
+  const map={
+    Beauty:"💄",
+    Food:"🍰",
+    Drinks:"☕",
+    Places:"📍",
+    Experiences:"✨",
+    Fashion:"👗",
+    Home:"🏠",
+    Entertainment:"🎬",
+    Other:"✦"
+  };
+
+
+  return map[cat]||"✨";
+
+}
+
+
+/*
+  Gerçek katalog önerilerini burada arıyoruz.
+
+  Kullanıcının sevdiği markalardan birini
+  bulup aynı markadan başka ürünleri getiriyoruz.
+
+  Böylece örneğin:
+
+  Maybelline Sky High 9/10
+
+  -> Maybelline markası güçlü tercih
+  -> katalogdan başka Maybelline ürünleri
+
+  mantığı çalışıyor.
+*/
+
+async function getCatalogRecommendations(){
+
+  const data=tasteData();
+
+  const bestBrands=
+    data.bestBrands
+      .slice(0,2);
+
+
+  if(!bestBrands.length)
+    return [];
+
+
+  const output=[];
+
+
+  for(const brand of bestBrands){
+
+    /*
+      Aynı markadan arama yapmak için
+      önce Beauty/Food/Drinks kaynaklarını
+      sırayla deniyoruz.
+    */
+
+    const sources=[
+      {
+        cat:"Beauty",
+        base:"https://world.openbeautyfacts.org"
+      },
+      {
+        cat:"Food",
+        base:"https://world.openfoodfacts.org"
+      }
+    ];
+
+
+    for(const src of sources){
+
+      try{
+
+        const url=
+          `${src.base}/cgi/search.pl?search_terms=${encodeURIComponent(brand.name)}&search_simple=1&action=process&json=1&page_size=8`;
+
+
+        const res=
+          await fetch(url);
+
+
+        if(!res.ok)
+          continue;
+
+
+        const data2=
+          await res.json();
+
+
+        const products=
+          (data2.products||[])
+            .filter(
+              p=>
+                p.product_name ||
+                p.product_name_en
+            );
+
+
+        products.forEach(p=>{
+
+          const name=
+            p.product_name ||
+            p.product_name_en ||
+            "";
+
+
+          const img=
+            p.image_front_url ||
+            p.image_url ||
+            p.image_front_small_url ||
+            "";
+
+
+          if(
+            !name ||
+            normalized(name)===normalized(brand.name)
+          )
+            return;
+
+
+          if(
+            items.some(
+              x=>normalized(x.name)===normalized(name)
+            )
+          )
+            return;
+
+
+          if(
+            output.some(
+              x=>normalized(x.name)===normalized(name)
+            )
+          )
+            return;
+
+
+          output.push({
+
+            type:"product",
+
+            name,
+
+            brand:
+              p.brands || brand.name,
+
+            photo:img,
+
+            cat:src.cat,
+
+            emoji:categoryEmoji(src.cat),
+
+            reason:
+              `${brand.name} ürünlerine verdiğin puanlar yüksek.`
+
+          });
+
+        });
+
+
+        /*
+          Bir marka için yeterli sonuç aldıysak
+          diğer kaynağa geçmeye gerek yok.
+        */
+
+        if(
+          output.filter(
+            x=>
+              normalized(x.brand)
+                .includes(normalized(brand.name))
+          ).length>=3
+        )
+          break;
+
+      }catch(e){
+
+        console.log(
+          "Recommendation API error",
+          e
+        );
+
+      }
+
+    }
+
+  }
+
+
+  return output.slice(0,4);
+
+}
+
+
+function renderRecommendations(){
+
+  const box=
+    document.getElementById("recommendations");
+
+
+  if(!box)
+    return;
+
+
+  const data=tasteData();
+
+
+  /*
+    Henüz yeterli veri yoksa.
+  */
+
+  if(items.length<3){
+
+    box.innerHTML=
+
+      `<div class="recommend-empty">
+
+        <div class="recommend-empty-icon">
+          🌱
+        </div>
+
+        <div class="recommend-empty-title">
+          Seni tanımaya başlıyoruz
+        </div>
+
+        <div class="recommend-empty-text">
+          Birkaç şey daha puanladıkça sevdiğin kategorileri,
+          markaları ve tarzları keşfedip sana özel öneriler
+          göstermeye başlayacağım.
+        </div>
+
+      </div>`;
+
+    return;
+
+  }
+
+
+  const insights=
+    buildLocalRecommendations();
+
+
+  /*
+    Eğer henüz marka bilgisi veya yeterli güçlü
+    tercih yoksa kategori bazlı kişiselleştirme.
+  */
+
+  if(!insights.length){
+
+    box.innerHTML=
+
+      `<div class="recommend-empty">
+
+        <div class="recommend-empty-icon">
+          ✨
+        </div>
+
+        <div class="recommend-empty-title">
+          Zevk haritan oluşuyor
+        </div>
+
+        <div class="recommend-empty-text">
+          Yüksek puan verdiğin şeyleri biraz daha artır.
+          Sonra sana marka ve kategori bazlı öneriler çıkaracağım.
+        </div>
+
+      </div>`;
+
+    return;
+
+  }
+
+
+  const tags=
+    data.bestCategories
+      .filter(x=>x.avg>=7)
+      .slice(0,4)
+      .map(
+        x=>
+          `<span class="taste-tag">
+            ${categoryEmoji(x.cat)} ${esc(x.cat)} · ${x.avg.toFixed(1)}
+          </span>`
+      )
+      .join("");
+
+
+  box.innerHTML=
+
+    `<div class="recommend-head">
+
+      <div>
+
+        <div class="recommend-title">
+          Seni biraz tanıyoruz.
+        </div>
+
+        <div class="recommend-sub">
+          Puanlarından ve tekrar tercihlerinden yola çıkarak
+          zevkine dair bazı ipuçları buldum.
+        </div>
+
+        <div class="taste-tags">
+          ${tags}
+        </div>
+
+      </div>
+
+      <div class="recommend-spark">
+        ✨
+      </div>
+
+    </div>
+
+    <div
+      id="recommendGrid"
+      class="recommend-grid"
+    >
+
+      ${insights.slice(0,4).map(renderRecommendationCard).join("")}
+
+    </div>
+
+    <div
+      id="catalogRecommendations"
+      style="margin-top:9px"
+    ></div>`;
+
+  /*
+    Katalog önerilerini arka planda getiriyoruz.
+  */
+
+  loadCatalogRecommendations();
+
+}
+
+
+function renderRecommendationCard(x,index){
+
+  if(x.type==="product"){
+
+    return `
+
+      <div class="recommend-card">
+
+        <div class="recommend-pic">
+
+          ${
+            x.photo
+
+            ?
+
+            `<img
+              src="${esc(x.photo)}"
+              alt=""
+            >`
+
+            :
+
+            `<span class="recommend-emoji">
+              ${x.emoji||"✨"}
+            </span>`
+          }
+
+        </div>
+
+        <div class="recommend-body">
+
+          <div class="recommend-name">
+            ${esc(x.name)}
+          </div>
+
+          ${
+            x.brand
+
+            ?
+
+            `<div class="recommend-brand">
+              ${esc(x.brand)}
+            </div>`
+
+            :
+
+            ""
+          }
+
+          <div class="recommend-reason">
+            ${esc(x.reason)}
+          </div>
+
+          <div class="recommend-actions">
+
+            <button
+              class="rec-list"
+              onclick="addRecommendationToList(${JSON.stringify(x).replace(/"/g,'&quot;')})"
+            >
+              + Liste
+            </button>
+
+            <button
+              class="rec-hide"
+              onclick="hideRecommendation(this)"
+            >
+              Gizle
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  return `
+
+    <div class="recommend-card">
+
+      <div class="recommend-pic">
+
+        <span class="recommend-emoji">
+          ${x.emoji||"✨"}
+        </span>
+
+      </div>
+
+      <div class="recommend-body">
+
+        <div class="recommend-name">
+          ${esc(x.name)}
+        </div>
+
+        <div class="recommend-reason">
+          ${esc(x.reason)}
+        </div>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+async function loadCatalogRecommendations(){
+
+  const target=
+    document.getElementById("catalogRecommendations");
+
+
+  if(!target)
+    return;
+
+
+  const recs=
+    await getCatalogRecommendations();
+
+
+  if(!recs.length)
+    return;
+
+
+  target.innerHTML=
+
+    `<div
+      style="font-size:12px;font-weight:850;margin:12px 0 8px"
+    >
+      🛍️ Beğenebileceğin ürünler
+    </div>
+
+    <div class="recommend-grid">
+
+      ${recs
+        .slice(0,4)
+        .map(
+          x=>renderRecommendationCard(x)
+        )
+        .join("")}
+
+    </div>`;
+
+}
+
+
+function hideRecommendation(button){
+
+  const card=
+    button.closest(".recommend-card");
+
+
+  if(card){
+
+    card.style.display="none";
+
+  }
+
+}
+
+
+function addRecommendationToList(data){
+
+  /*
+    Ürün kategorisine göre mantıklı varsayılan liste.
+  */
+
+  let listId="try";
+
+
+  if(
+    data.cat==="Beauty" ||
+    data.cat==="Food" ||
+    data.cat==="Drinks" ||
+    data.cat==="Fashion" ||
+    data.cat==="Home"
+  ){
+
+    listId="buy";
+
+  }
+
+
+  /*
+    Öneri ürün ise Almak istediklerim,
+    diğer şeylerde Denemek istediklerim.
+  */
+
+  currentListId=listId;
+
+
+  const list=
+    getList(listId);
+
+
+  document.getElementById("wantModalTitle").textContent=
+    list.icon+" "+list.title;
+
+
+  document.getElementById("wantName").value=
+    data.name;
+
+
+  document.getElementById("wantNote").value=
+    data.reason || "Sana göre önerildi.";
+
+
+  /*
+    Önerinin fotoğrafını ve markasını
+    geçici olarak saklıyoruz.
+  */
+
+  window._recommendationData={
+    ...data
+  };
+
+
+  document.getElementById("wantModal").style.display=
+    "flex";
+
+}
+
+
+function saveWant(){
+
+  let name=
+    document
+      .getElementById("wantName")
+      .value
+      .trim();
+
+
+  if(!name){
+
+    toast("Bir isim yaz.");
+
+    return;
+
+  }
+
+
+  const rec=
+    window._recommendationData || null;
+
+
+  wants.unshift({
+
+    id:
+      "want_"+Date.now()+"_"+Math.random()
+        .toString(36)
+        .slice(2,7),
+
+    listId:
+      currentListId,
+
+    name,
+
+    note:
+      document
+        .getElementById("wantNote")
+        .value
+        .trim(),
+
+    emoji:
+      rec?.emoji ||
+      getList(currentListId)?.icon ||
+      "✨",
+
+    photo:
+      rec?.photo || "",
+
+    brand:
+      rec?.brand || "",
+
+    date:
+      new Date().toISOString().slice(0,10)
+
+  });
+
+
+  window._recommendationData=null;
+
+
+  saveWants();
+
+  closeWantModal();
+
+  renderListDetail();
+
+  toast("Listeye eklendi ✓");
+
+}
+
+
+/* =========================
    NAVIGATION
 ========================= */
 
@@ -1890,6 +2954,10 @@ function showView(id,btn){
 
   if(id==="listsView")
     renderListsHome();
+
+
+  if(id==="homeView")
+    renderRecommendations();
 
 
   window.scrollTo({
@@ -1934,7 +3002,7 @@ function renderDiary(){
           <br>
 
           <small>
-            ${esc(x.cat)} · ${esc(x.note||"")}
+            ${esc(x.brand ? x.brand+" · " : "")}${esc(x.cat)} · ${esc(x.note||"")}
           </small>
 
         </div>
@@ -2398,6 +3466,9 @@ function openWantModal(listId){
 
   let list=getList(listId);
 
+  window._recommendationData=null;
+
+
   document.getElementById("wantModalTitle").textContent=
     list.icon+" "+list.title;
 
@@ -2418,7 +3489,7 @@ function closeWantModal(){
 }
 
 
-function saveWant(){
+function saveWantManual(){
 
   let name=
     document
@@ -2474,6 +3545,10 @@ function saveWant(){
 }
 
 
+/* =========================
+   DELETE WANT
+========================= */
+
 function deleteWant(id){
 
   if(!confirm("Bu şeyi listeden kaldırmak istiyor musun?"))
@@ -2517,13 +3592,6 @@ function completeWant(id){
     return;
 
 
-  /*
-    Liste kaydını normal arşive dönüştürüyoruz.
-    Böylece kullanıcı deneyimini tamamladıktan
-    sonra puanlayabiliyor.
-  */
-
-
   closeWantModal();
 
 
@@ -2532,7 +3600,7 @@ function completeWant(id){
 
   chosenScore=8;
   chosenAgain="Tekrar alırım";
-  photoData="";
+  photoData=item.photo || "";
   selectedProduct=null;
 
 
@@ -2551,8 +3619,23 @@ function completeWant(id){
   document.getElementById("photo").value="";
 
 
-  document.getElementById("photoPreview").style.display=
-    "none";
+  if(item.photo){
+
+    document.getElementById("previewImg").src=
+      item.photo;
+
+    document.getElementById("photoPreview").style.display=
+      "block";
+
+    document.getElementById("photoNote").textContent=
+      "Listedeki görsel kullanılıyor ✓";
+
+  }else{
+
+    document.getElementById("photoPreview").style.display=
+      "none";
+
+  }
 
 
   document.getElementById("productResults").innerHTML="";
@@ -3323,6 +4406,8 @@ function saveItem(){
 
   renderHome();
 
+  renderRecommendations();
+
   toast("Kaydedildi ✓");
 
 }
@@ -3385,6 +4470,8 @@ drawScores();
 drawChoices();
 
 renderListsHome();
+
+renderRecommendations();
 
 </script>
 
