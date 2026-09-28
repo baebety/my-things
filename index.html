@@ -4704,7 +4704,51 @@ renderRecommendations();
     signupBtn.textContent = "Hesap oluştur";
   });
 
+const resendBtn = document.createElement("button");
 
+resendBtn.textContent = "Doğrulama mailini tekrar gönder";
+
+resendBtn.style.cssText = `
+  width:100%;
+  border:0;
+  background:none;
+  color:#b66b52;
+  padding:12px;
+  font-size:13px;
+  cursor:pointer;
+`;
+
+authMessage.parentElement.appendChild(resendBtn);
+
+resendBtn.addEventListener("click", async () => {
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    authMessage.textContent = "Önce e-posta adresini gir.";
+    return;
+  }
+
+  resendBtn.disabled = true;
+  resendBtn.textContent = "Gönderiliyor...";
+
+  const { error } = await supabaseClient.auth.resend({
+    type: "signup",
+    email: email,
+    options: {
+      emailRedirectTo: "https://baebety.github.io/my-things/"
+    }
+  });
+
+  if (error) {
+    authMessage.textContent = error.message;
+  } else {
+    authMessage.textContent =
+      "Yeni doğrulama maili gönderildi. Gelen kutunu ve spam klasörünü kontrol et.";
+  }
+
+  resendBtn.disabled = false;
+  resendBtn.textContent = "Doğrulama mailini tekrar gönder";
+});
   checkAuth();
 </script>
 </body>
