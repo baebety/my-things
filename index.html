@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+  const SUPABASE_URL = "https://bixubfvnlbcfkjfevims.supabase.co";
+  const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_nQfew4C-6wfhOB0nlWNdxA_SGLfAmEW";
+
+  const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+</script>
 <meta name="theme-color" content="#f7f3ed">
 
 <title>my things.</title>
