@@ -4751,5 +4751,26 @@ resendBtn.addEventListener("click", async () => {
 });
   checkAuth();
 </script>
+  <script>
+async function testSupabaseConnection() {
+  const { data, error } = await supabaseClient
+    .from("items")
+    .select("id")
+    .limit(1);
+
+  if (error) {
+    alert("Supabase bağlantı hatası:\n" + error.message);
+  } else {
+    alert("✅ Supabase bağlantısı çalışıyor!");
+  }
+}
+
+const testButton = document.createElement("button");
+testButton.textContent = "🧪 Supabase Test";
+testButton.style.cssText =
+  "position:fixed;bottom:90px;right:15px;z-index:9999;padding:12px 16px;border:0;border-radius:12px;background:#111;color:white;font-size:14px;";
+testButton.onclick = testSupabaseConnection;
+document.body.appendChild(testButton);
+</script>
 </body>
 </html>
