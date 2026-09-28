@@ -4484,6 +4484,228 @@ renderListsHome();
 renderRecommendations();
 
 </script>
+<script>
+  // =========================
+  // MY THINGS — AUTH
+  // =========================
 
+  const authBox = document.createElement("div");
+
+  authBox.id = "authBox";
+
+  authBox.innerHTML = `
+    <div style="
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      background:#f7f3ed;
+      font-family:Arial,sans-serif;
+    ">
+      <div style="
+        width:100%;
+        max-width:390px;
+        background:#fffdfa;
+        border-radius:28px;
+        padding:30px 24px;
+        box-shadow:0 12px 34px rgba(45,36,28,.08);
+      ">
+
+        <div style="
+          font-size:32px;
+          font-weight:700;
+          margin-bottom:8px;
+        ">
+          my things.
+        </div>
+
+        <div style="
+          color:#8a8278;
+          margin-bottom:26px;
+          line-height:1.5;
+        ">
+          Kişisel arşivine giriş yap.
+        </div>
+
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="E-posta"
+          autocomplete="email"
+          style="
+            width:100%;
+            box-sizing:border-box;
+            padding:14px 16px;
+            border:1px solid #e5ddd2;
+            border-radius:14px;
+            margin-bottom:10px;
+            font-size:15px;
+            background:#fff;
+          "
+        >
+
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Şifre"
+          autocomplete="current-password"
+          style="
+            width:100%;
+            box-sizing:border-box;
+            padding:14px 16px;
+            border:1px solid #e5ddd2;
+            border-radius:14px;
+            margin-bottom:14px;
+            font-size:15px;
+            background:#fff;
+          "
+        >
+
+        <button
+          id="loginBtn"
+          style="
+            width:100%;
+            border:0;
+            border-radius:14px;
+            padding:15px;
+            background:#b66b52;
+            color:white;
+            font-size:15px;
+            font-weight:600;
+            cursor:pointer;
+            margin-bottom:9px;
+          "
+        >
+          Giriş yap
+        </button>
+
+        <button
+          id="signupBtn"
+          style="
+            width:100%;
+            border:1px solid #e5ddd2;
+            border-radius:14px;
+            padding:14px;
+            background:#fffdfa;
+            color:#24221f;
+            font-size:15px;
+            cursor:pointer;
+          "
+        >
+          Hesap oluştur
+        </button>
+
+        <div
+          id="authMessage"
+          style="
+            margin-top:16px;
+            font-size:13px;
+            line-height:1.5;
+            color:#8a8278;
+            text-align:center;
+          "
+        ></div>
+
+      </div>
+    </div>
+  `;
+
+  authBox.style.position = "fixed";
+  authBox.style.inset = "0";
+  authBox.style.zIndex = "999999";
+
+  document.body.appendChild(authBox);
+
+
+  const emailInput = document.getElementById("authEmail");
+  const passwordInput = document.getElementById("authPassword");
+  const loginBtn = document.getElementById("loginBtn");
+  const signupBtn = document.getElementById("signupBtn");
+  const authMessage = document.getElementById("authMessage");
+
+
+  async function checkAuth() {
+    const { data } = await supabaseClient.auth.getSession();
+
+    if (data.session) {
+      authBox.remove();
+      return;
+    }
+
+    authBox.style.display = "block";
+  }
+
+
+  loginBtn.addEventListener("click", async () => {
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      authMessage.textContent = "E-posta ve şifreni gir.";
+      return;
+    }
+
+    loginBtn.disabled = true;
+    loginBtn.textContent = "Giriş yapılıyor...";
+
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      authMessage.textContent = error.message;
+      loginBtn.disabled = false;
+      loginBtn.textContent = "Giriş yap";
+      return;
+    }
+
+    authMessage.textContent = "Giriş başarılı.";
+    authBox.remove();
+  });
+
+
+  signupBtn.addEventListener("click", async () => {
+
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    if (!email || !password) {
+      authMessage.textContent = "E-posta ve şifreni gir.";
+      return;
+    }
+
+    if (password.length < 6) {
+      authMessage.textContent = "Şifre en az 6 karakter olmalı.";
+      return;
+    }
+
+    signupBtn.disabled = true;
+    signupBtn.textContent = "Hesap oluşturuluyor...";
+
+    const { error } = await supabaseClient.auth.signUp({
+      email,
+      password
+    });
+
+    if (error) {
+      authMessage.textContent = error.message;
+      signupBtn.disabled = false;
+      signupBtn.textContent = "Hesap oluştur";
+      return;
+    }
+
+    authMessage.textContent =
+      "Hesabın oluşturuldu. E-posta adresine gelen doğrulama bağlantısına tıkla, ardından giriş yap.";
+
+    signupBtn.disabled = false;
+    signupBtn.textContent = "Hesap oluştur";
+  });
+
+
+  checkAuth();
+</script>
 </body>
 </html>
