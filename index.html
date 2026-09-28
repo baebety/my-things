@@ -4327,14 +4327,13 @@ function clearProduct(e){
    SAVE ITEM
 ========================= */
 
-function saveItem(){
+async function saveItem(){
 
-  let name=
+  let name =
     document
       .getElementById("name")
       .value
       .trim();
-
 
   if(!name){
 
@@ -4343,17 +4342,32 @@ function saveItem(){
     );
 
     return;
-
   }
 
 
-  let finalPhoto=
+  // Giriş yapan kullanıcıyı al
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+
+  if(userError || !user){
+
+    alert("Oturum bulunamadı. Lütfen tekrar giriş yap.");
+
+    return;
+  }
+
+
+  let finalPhoto =
     photoData ||
     selectedProduct?.img ||
     "";
 
 
-  items.unshift({
+  // Uygulamadaki mevcut kayıt formatı
+  const newItem = {
 
     name,
 
@@ -4387,7 +4401,120 @@ function saveItem(){
     date:
       new Date().toISOString().slice(0,10)
 
+  };
+
+
+  // =========================
+  // SUPABASE'E KAYDET
+  // =========================
+
+  const { data: cloudItem, error } =
+    await supabaseClient
+      .from("items")
+      .insert({
+
+        user_id: user.id,
+
+        name: newItem.name,
+
+        brand: newItem.brand,
+
+        category: newItem.cat,
+
+        status: "used",
+
+        rating: newItem.score,
+
+        decision:
+          newItem.again === "Tekrar alırım"
+            ? "again"
+            : newItem.again === "Belki"
+              ? "maybe"
+              : "no",
+
+        review: newItem.note,
+
+        own_photo_url:
+          photoData || null,
+
+        catalog_image_url:
+          selectedProduct?.img || null,
+
+        external_id:
+          selectedProduct?.code || null,
+
+        external_source:
+          selectedProduct?.source || null,
+
+        source:
+          selectedProduct?.img
+            ? "catalog"
+            : "mine",
+
+        tried_at:
+          newItem.date
+
+      })
+      .select()
+      .single();
+
+
+  if(error){
+
+    console.error("Supabase kayıt hatası:", error);
+
+    alert(
+      "Supabase'e kaydedilemedi:\n\n" +
+      error.message
+    );
+
+    return;
+  }
+
+
+  // =========================
+  // ŞİMDİ YEREL ÖNBELLEĞE DE KAYDET
+  // =========================
+
+  items.unshift({
+    ...newItem,
+
+    supabaseId:
+      cloudItem.id
   });
+
+  save();
+
+
+  /*
+    Eğer bir liste öğesinden geldiysek
+    artık o şeyi listeden çıkarıyoruz.
+  */
+
+  if(window._completingWant){
+
+    wants =
+      wants.filter(
+        x =>
+          x.id !== window._completingWant
+      );
+
+    saveWants();
+
+    window._completingWant = null;
+
+  }
+
+
+  closeModal();
+
+  renderHome();
+
+  renderRecommendations();
+
+  toast("Supabase'e kaydedildi ✓");
+
+}
 
 
   save();
